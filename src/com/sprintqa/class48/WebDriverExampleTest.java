@@ -21,7 +21,7 @@ public class WebDriverExampleTest {
 	@Before
 	public void setUp() {
 		// Setup and load Webdriver for Chrome
-		System.setProperty("webdriver.chrome.driver", "/Users/mpmeloche/Development/eclipse/workspace/SeleniumExamples/webdrivers/chromedriver");
+		System.setProperty("webdriver.chrome.driver","C:\\Users\\lanar\\Documents\\Selenium\\SeleniumExample\\webdrivers\\chromedriver.exe");
 		driver = new ChromeDriver();
 		// Setup and load Webdriver for Firefox
 //		System.setProperty("webdriver.chrome.driver", "/Users/mpmeloche/Development/eclipse/workspace/SeleniumExamples/webdrivers/geckodriver");		

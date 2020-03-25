@@ -25,8 +25,7 @@ class UsingMultipleCheckBoxesWithSeleniumExample {
 	void setUp() throws Exception {
 		// Register the Chrome Driver Binary to the system path so WebDriver can
 		// communicate with the Chrome browser
-		System.setProperty("webdriver.chrome.driver",
-				"/Users/mpmeloche/Development/eclipse/workspace/SeleniumExamples/webdrivers/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\lanar\\Documents\\Selenium\\SeleniumExample\\webdrivers\\chromedriver.exe");
 
 		// Declare your webDriver class variable to a ChromeDriver WebDriver to
 		// communicate with Chrome.

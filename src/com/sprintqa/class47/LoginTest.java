@@ -32,13 +32,12 @@ public class LoginTest {
 
 	@Before
 	public void setUp() {
-		System.setProperty("webdriver.chrome.driver", "/Users/mpmeloche/Development/eclipse/workspace/SeleniumExamples/webdrivers/chromedriver");
+		System.setProperty("webdriver.chrome.driver","C:\\Users\\lanar\\eclipse-workspace\\"
+		  		+ "SeleniumExamples\\webdrivers\\chromedriver.exe");
 		driver = new ChromeDriver();
 		js = (JavascriptExecutor) driver;
 		vars = new HashMap<String, Object>();
 	}
-
-	
 	@After
 	public void tearDown() {
 		driver.quit();

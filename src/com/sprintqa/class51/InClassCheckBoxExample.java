@@ -1,7 +1,5 @@
 package com.sprintqa.class51;
-
 import java.util.List;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,12 +9,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 class InClassCheckBoxExample {
-	// Declare WebDriver variable as a Class variable so we can use it through out
-	// the class.
+	// Declare WebDriver variable as a Class variable so we can use it through out the class.
 	WebDriver webDriver;
 
-	/**
-	 * Remember to configure your System path so the application can find your
+	/** Remember to configure your System path so the application can find your
 	 * ChromeDriver binary files.
 	 * 
 	 * @throws Exception
@@ -25,8 +21,8 @@ class InClassCheckBoxExample {
 	void setUp() throws Exception {
 		// Register the Chrome Driver Binary to the system path so WebDriver can
 		// communicate with the Chrome browser
-		System.setProperty("webdriver.chrome.driver",
-				"/Users/mpmeloche/Development/eclipse/workspace/SeleniumExamples/webdrivers/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\lanar\\Documents\\Selenium\\"
+				+ "SeleniumExample\\webdrivers\\chromedriver.exe");
 
 		// Declare your webDriver class variable to a ChromeDriver WebDriver to
 		// communicate with Chrome.
@@ -35,7 +31,7 @@ class InClassCheckBoxExample {
 
 	/**
 	 * Create a JUnit test to check all the check boxes. Loop through the
-	 * “Automation Tool” check boxes Verify that all the check boxes isSelected.
+	 *check boxes Verify that all the check boxes isSelected.
 	 * Print out the checked values to the console using System.out.println()
 	 */
 	@Test

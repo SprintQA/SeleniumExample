@@ -1,7 +1,5 @@
 package com.sprintqa.class51;
-
 import java.util.List;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,25 +10,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
 class InClassDropDownExample {
-	// Declare WebDriver variable as a Class variable so we can use it through out
-	// the class.
+	// Declare WebDriver variable as a Class variable so we can use it through out the class.
 	WebDriver webDriver;
 
-	/**
-	 * Remember to configure your System path so the application can find your
-	 * ChromeDriver binary files.
-	 * 
-	 * @throws Exception
-	 */
+	// Remember to configure your System path so the application can find your ChromeDriver binary files.
+	
 	@BeforeEach
 	void setUp() throws Exception {
-		// Register the Chrome Driver Binary to the system path so WebDriver can
-		// communicate with the Chrome browser
-		System.setProperty("webdriver.chrome.driver",
-				"/Users/mpmeloche/Development/eclipse/workspace/SeleniumExamples/webdrivers/chromedriver");
+		// Register the Chrome Driver Binary to the system path so WebDriver can communicate with the Chrome browser
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\lanar\\Documents\\Selenium\\SeleniumExample\\webdrivers\\chromedriver.exe");
 
-		// Declare your webDriver class variable to a ChromeDriver WebDriver to
-		// communicate with Chrome.
+		// Declare your webDriver class variable to a ChromeDriver WebDriver to communicate with Chrome.
 		webDriver = new ChromeDriver();
 	}
 
