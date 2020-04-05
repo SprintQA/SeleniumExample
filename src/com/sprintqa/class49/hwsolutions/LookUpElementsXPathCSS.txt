@@ -1,0 +1,25 @@
+Goto Facebook.com.
+
+Look up the following by XPATH and CSS using Chrome console:
+
+1. What is the XPATH && CSS to find a tag with an id of "registration_container"?	
+	
+	XPath = //div[@id='registration_container'] 
+	CSS = div#registration_container
+
+2. What is the XPATH & CSS to find all the "span" elements on the page? How many elements are there?
+
+	XPath = $x('//span')  
+	CSS =  $$('span')  
+	
+	23 elements found
+	
+	Note: When using the Chrome Developer finder to find CSS Selector tag elements may return text matches as well.
+		  To guarantee just the elements re returned use the Xpath console $x() or CSS Selector console $$() methods.    
+
+3. What is the XPATH & CSS to find all the elements with a class attribute of "_6a" on the page? How many elements with class?
+
+	XPath = //*[contains(@class,'_6a')]   
+	CSS = *._6a  
+	
+	5 elements found
