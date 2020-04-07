@@ -12,8 +12,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 class InClassExplicitWaitsExample {
-	// Declare WebDriver variable as a Class variable so we can use it through out
-	// the class.
 	WebDriver webDriver;
 
 	/**
@@ -23,21 +21,33 @@ class InClassExplicitWaitsExample {
 	 * @throws Exception
 	 */
 	@BeforeEach
-	void setUp() throws Exception {
-		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+	void setUp() {
+		// Setup the System path to the Selenium Chrome Binary file
+		// Use System.getProperty("user.dir") to get the system path for the project.
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
-		// Declare your webDriver class variable to a ChromeDriver WebDriver to
-		// communicate with Chrome.
+		// Instantiate WebDriver to use ChromeDriver.
 		webDriver = new ChromeDriver();
-		
+	}
+
+	/**
+	 * Make sure when your done running your tests that you close the window/tab and
+	 * then exit out of the browser window.
+	 * 
+	 * @throws Exception
+	 */
+	@AfterEach
+	void tearDown() throws Exception {
+		webDriver.close();
+		webDriver.quit();
 	}
 
 	@Test
-	void test() throws InterruptedException {
-
+	void inClassExplicitWaitsTest() throws InterruptedException {
+		// Set your starting web page.
 		String url = "https://opensource-demo.orangehrmlive.com/index.php/admin/viewSystemUsers";
-		
+
+		// Open up your Chrome browser to the starting web page.
 		webDriver.get(url);
 
 		/*
@@ -60,45 +70,28 @@ class InClassExplicitWaitsExample {
 		// Preparing the explicit wait.
 		WebDriverWait wait = new WebDriverWait(webDriver, 30);
 
-				
 		// Wait for the presence Of the "ContactUs" Div Element to be Located.
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("menu_admin_UserManagement")));
 
-		
 		// Locate the locator for the "USer Management" menu button and click it.
 		webDriver.findElement(By.id("menu_admin_viewAdminModule")).click();
 
-		
 		// Wait for the Element "ContactUs" Div Element to be visible
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div#systemUser-information>div.head>h1")));
+		wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.cssSelector("div#systemUser-information>div.head>h1")));
 
-		
-		
 		// Declare our Strings to store Expected String value
 		String expectedText = "System Users";
-		
+
 		// Locate the locator for the page title "System Users"
 		String actualText = webDriver.findElement(By.cssSelector("div#systemUser-information>div.head>h1")).getText();
-		
-		if(expectedText.contentEquals(actualText)) {
-			System.out.println("Test Passed.");	
-		}else {
+
+		if (expectedText.contentEquals(actualText)) {
+			System.out.println("Test Passed.");
+		} else {
 			System.out.println("Test Failed.");
 		}
-		
-		Thread.sleep(3000);
-	}
 
-	/**
-	 * Make sure when your done running your tests that you close the window/tab and
-	 * then exit out of the browser window.
-	 * 
-	 * @throws Exception
-	 */
-	@AfterEach
-	void tearDown() throws Exception {
-		webDriver.close();
-		webDriver.quit();
 	}
 
 	/**
@@ -112,7 +105,7 @@ class InClassExplicitWaitsExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 
@@ -121,7 +114,7 @@ class InClassExplicitWaitsExample {
 
 		// local var reference to store os binary path
 		String chromeBinaryPath = "";
-		
+
 		// We only need the 1st 3 characters from the os.name to determine our OS.
 		System.out.println(os.substring(0, 3));
 

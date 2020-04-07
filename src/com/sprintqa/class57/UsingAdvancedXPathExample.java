@@ -25,12 +25,12 @@ class UsingAdvancedXPathExample {
 	@BeforeEach
 	void setUp() throws Exception {
 		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
 		// Declare your webDriver class variable to a ChromeDriver WebDriver to
 		// communicate with Chrome.
 		webDriver = new ChromeDriver();
-		
+
 		/*
 		 * An implicit wait tells the WebDriver to poll the DOM for a certain amount of
 		 * time when trying to find an element or elements if they are not immediately
@@ -47,27 +47,33 @@ class UsingAdvancedXPathExample {
 	}
 
 	@Test
-	void test() throws InterruptedException {
+	void usingAdvancedXPathTest() throws InterruptedException {
+		// Set your starting web page.
 		String url = "https://www.aa.com/homePage.do";
 
+		// Open up your Chrome browser to the starting web page.
 		webDriver.get(url);
 
+		// Maximize the Chrome browser to fill the screen.
 		webDriver.manage().window().maximize();
-		
-		// Locate the Locator for the link "originAirport" and click it		
+
+		// Locate the Locator for the link "originAirport" and click it
 		webDriver.findElement(By.name("originAirport")).sendKeys("DCA");
 
-		// Locate the Locator for the link "destinationAirport" and click it	
+		// Locate the Locator for the link "destinationAirport" and click it
 		webDriver.findElement(By.name("destinationAirport")).sendKeys("JFK");
-
 		webDriver.findElement(By.xpath("//input[@id='aa-leavingOn']/../following-sibling::button")).click();
 
+		// Find left Calendar
 		WebElement webElement = webDriver.findElement(By.xpath("//div[contains(@class,'ui-corner-left')]/div"));
+
+		// Loop through calendar until the header is August.
 		while (!webElement.getText().contains("August")) {
 			webDriver.findElement(By.xpath("//a[@title='Next']")).click();
 			webElement = webDriver.findElement(By.xpath("//div[contains(@class,'ui-corner-left')]/div"));
 		}
 
+		// Once the month is august select the 10th
 		List<WebElement> cells = webDriver.findElements(
 				By.xpath("//div[contains(@class,'ui-corner-left')]/following-sibling::table/tbody/tr/td"));
 		for (WebElement cell : cells) {
@@ -77,13 +83,19 @@ class UsingAdvancedXPathExample {
 			}
 		}
 
+		// click the returning button
 		webDriver.findElement(By.xpath("//input[@id='aa-returningFrom']/../following-sibling::button")).click();
+
+		// Get the returning Calendar
 		webElement = webDriver.findElement(By.xpath("//div[contains(@class,'ui-corner-right')]/div"));
+
+		// Loop through the calendar until the month is November
 		while (!webElement.getText().contains("November")) {
 			webDriver.findElement(By.xpath("//a[@title='Next']")).click();
 			webElement = webDriver.findElement(By.xpath("//div[contains(@class,'ui-corner-right')]/div"));
 		}
 
+		// Once the month is novenber select the 24thth
 		cells = webDriver.findElements(
 				By.xpath("//div[contains(@class,'ui-corner-right')]/following-sibling::table/tbody/tr/td"));
 		for (WebElement cell : cells) {
@@ -92,7 +104,11 @@ class UsingAdvancedXPathExample {
 				break;
 			}
 		}
+
+		// Find the dubmit button
 		webDriver.findElement(By.id("flightSearchForm.button.reSubmit")).click();
+
+		// Do to the corona virus we have to stop the test here.
 
 		// Preparing the explicit wait.
 //		WebDriverWait wait = new WebDriverWait(webDriver, 40);
@@ -101,9 +117,7 @@ class UsingAdvancedXPathExample {
 //
 //		String text = webDriver.findElement(By.id("h1#aa-pageTitle")).getText().trim();
 //		Assert.assertEquals(text, "Choose flights", "Test Case Pass");
-		
-		
-		Thread.sleep(3000);
+
 	}
 
 	/**
@@ -129,7 +143,7 @@ class UsingAdvancedXPathExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

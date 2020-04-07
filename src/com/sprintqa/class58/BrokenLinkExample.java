@@ -28,7 +28,7 @@ class BrokenLinkExample {
 	@BeforeEach
 	void setUp() throws Exception {
 		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
 		// Declare your webDriver class variable to a ChromeDriver WebDriver to
 		// communicate with Chrome.
@@ -36,12 +36,15 @@ class BrokenLinkExample {
 	}
 
 	@Test
-	void test() throws InterruptedException {
-		 String url = "http://Newtours.Demoaut.Com/";
-		//String url = "https://opensource-demo.orangehrmlive.com/";
+	void brokenLinkTest() throws InterruptedException {
+		// Set your starting web page.
+		String url = "http://Newtours.Demoaut.Com/";
+		// String url = "https://opensource-demo.orangehrmlive.com/";
 
+		// Open up your Chrome browser to the starting web page.
 		webDriver.get(url);
 
+		// Maximize the Chrome browser to fill the screen.
 		webDriver.manage().window().maximize();
 
 		// Locate the Locator for all the a Elements on the page
@@ -94,7 +97,7 @@ class BrokenLinkExample {
 					System.out.println(" - Link is NOT valid: " + link.getText());
 					System.out.println(" - " + linkUrl);
 				}
-				
+
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -102,7 +105,6 @@ class BrokenLinkExample {
 			}
 		}
 
-		Thread.sleep(3000);
 	}
 
 	/**
@@ -128,7 +130,7 @@ class BrokenLinkExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

@@ -9,8 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 class MultipleWindowsExample {
-	// Declare WebDriver variable as a Class variable so we can use it through out
-	// the class.
 	WebDriver webDriver;
 
 	/**
@@ -20,100 +18,13 @@ class MultipleWindowsExample {
 	 * @throws Exception
 	 */
 	@BeforeEach
-	void setUp() throws Exception {
-		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+	void setUp() {
+		// Setup the System path to the Selenium Chrome Binary file
+		// Use System.getProperty("user.dir") to get the system path for the project.
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
-		// Declare your webDriver class variable to a ChromeDriver WebDriver to
-		// communicate with Chrome.
+		// Instantiate WebDriver to use ChromeDriver.
 		webDriver = new ChromeDriver();
-	}
-
-	@Test
-	void test() throws InterruptedException {
-		// Set your starting web page.
-		String url = "http://uitestpractice.com/Students/Switchto";
-
-		// Open up your Chrome browser to the starting web page.
-		webDriver.get(url);
-
-		// Maximize the Chrome browser to fill the screen.
-		webDriver.manage().window().maximize();
-
-// Using WebDriver to interact with a window/tab.
-//
-// WebDriver does not make the distinction between windows and tabs. If your
-// site opens a new tab or window, Selenium will let you work with it using a
-// window handle. Each window has a unique identifier which remains persistent
-// in a single session.
-//
-
-// 1. Start by using the getWindowHandle() method to get the window handle of
-// the current window.
-		String originalWindow = webDriver.getWindowHandle();
-		System.out.println(originalWindow);
-		
-// 2. Check we don't have other windows open already
-		if (webDriver.getWindowHandles().size() == 1) {
-		
-// 3. Use the WebDriver to search the web page using the "linkText" locator.
-			WebElement openNewWindowLink = webDriver.findElement(By.linkText("Opens in a new window"));		
-			
-// 4. Clicking this link will open a new window/tab 
-			openNewWindowLink.click();
-	
-			Thread.sleep(3000);
-
-
-			// 5. Wait for the new window or tab
-			while (webDriver.getWindowHandles().size() < 2) {
-				Thread.sleep(1000);
-			}
-
-			// 6. Loop through until we find a new window handle
-			for (String windowHandle : webDriver.getWindowHandles()) {
-				// Check to see if we have located a new window
-				if (!originalWindow.contentEquals(windowHandle)) {
-					// Use the switchTo() method to change controls to the new window
-					webDriver.switchTo().window(windowHandle);
-					break;
-				}
-			}			
-			
-// 7. Verify we are on the new window by checking for a viable web element on
-// the page.
-			WebElement dragableBox = webDriver.findElement(By.id("draggable"));
-			// Verify that we are on the expected page by looking for an
-			// element on the page.
-			if (dragableBox.isDisplayed()) {
-				System.out.println("New window is displayed");
-			} else {
-				System.out.println("New window is NOT displayed");
-			}			
-			Thread.sleep(3000);
-// 8. Close the tab or window
-			webDriver.close();
-			
-// 9. Switch back to the old tab or window
-			webDriver.switchTo().window(originalWindow);
-			
-			
-// 10. Verify we are on the new window by checking for a visable web element on
-// the page.
-			openNewWindowLink = webDriver.findElement(By.linkText("Opens in a new window"));
-			// Verify that we are on the expected page by looking for an
-			// element on the page.
-			if (openNewWindowLink.isDisplayed()) {
-				System.out.println("Original window is displayed");
-			} else {
-				System.out.println("Original window is NOT displayed");
-			}
-			
-
-		}
-		// Pause the test
-		Thread.sleep(3000);
-
 	}
 
 	/**
@@ -128,6 +39,86 @@ class MultipleWindowsExample {
 		webDriver.quit();
 	}
 
+	@Test
+	void multipleWindowsTest() throws InterruptedException {
+		// Set your starting web page.
+		String url = "http://uitestpractice.com/Students/Switchto";
+
+		// Open up your Chrome browser to the starting web page.
+		webDriver.get(url);
+
+		// Maximize the Chrome browser to fill the screen.
+		webDriver.manage().window().maximize();
+
+		// Using WebDriver to interact with a window/tab.
+		//
+		// WebDriver does not make the distinction between windows and tabs. If your
+		// site opens a new tab or window, Selenium will let you work with it using a
+		// window handle. Each window has a unique identifier which remains persistent
+		// in a single session.
+		//
+
+		// 1. Start by using the getWindowHandle() method to get the window handle of
+		// the current window.
+		String originalWindow = webDriver.getWindowHandle();
+		System.out.println(originalWindow);
+
+		// 2. Check we don't have other windows open already
+		if (webDriver.getWindowHandles().size() == 1) {
+
+			// 3. Use the WebDriver to search the web page using the "linkText" locator.
+			WebElement openNewWindowLink = webDriver.findElement(By.linkText("Opens in a new window"));
+
+			// 4. Clicking this link will open a new window/tab
+			openNewWindowLink.click();
+
+			// 5. Wait for the new window or tab
+			while (webDriver.getWindowHandles().size() < 2) {
+				Thread.sleep(1000);
+			}
+
+			// 6. Loop through until we find a new window handle
+			for (String windowHandle : webDriver.getWindowHandles()) {
+				// Check to see if we have located a new window
+				if (!originalWindow.contentEquals(windowHandle)) {
+					// Use the switchTo() method to change controls to the new window
+					webDriver.switchTo().window(windowHandle);
+					break;
+				}
+			}
+
+			// 7. Verify we are on the new window by checking for a viable web element on
+			// the page.
+			WebElement dragableBox = webDriver.findElement(By.id("draggable"));
+			// Verify that we are on the expected page by looking for an
+			// element on the page.
+			if (dragableBox.isDisplayed()) {
+				System.out.println("New window is displayed");
+			} else {
+				System.out.println("New window is NOT displayed");
+			}
+
+			// 8. Close the tab or window
+			webDriver.close();
+
+			// 9. Switch back to the old tab or window
+			webDriver.switchTo().window(originalWindow);
+
+			// 10. Verify we are on the new window by checking for a visable web element on
+			// the page.
+			openNewWindowLink = webDriver.findElement(By.linkText("Opens in a new window"));
+			// Verify that we are on the expected page by looking for an
+			// element on the page.
+			if (openNewWindowLink.isDisplayed()) {
+				System.out.println("Original window is displayed");
+			} else {
+				System.out.println("Original window is NOT displayed");
+			}
+
+		}
+
+	}
+
 	/**
 	 * The System class maintains a Properties object that describes the
 	 * configuration of the current working environment. System properties include
@@ -139,7 +130,7 @@ class MultipleWindowsExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

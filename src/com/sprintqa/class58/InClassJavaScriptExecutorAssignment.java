@@ -22,7 +22,7 @@ class InClassJavaScriptExecutorAssignment {
 	@BeforeEach
 	void setUp() throws Exception {
 		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
 		// Declare your webDriver class variable to a ChromeDriver WebDriver to
 		// communicate with Chrome.
@@ -30,20 +30,28 @@ class InClassJavaScriptExecutorAssignment {
 	}
 
 	@Test
-	void test() throws InterruptedException {
+	void inClassJavaScriptExecutorTest() throws InterruptedException {
+		// Set your starting web page.
 		String url = "https://www.aa.com/homePage.do";
 
+		// Open up your Chrome browser to the starting web page.
 		webDriver.get(url);
 
+		// Maximize the Chrome browser to fill the screen.
 		webDriver.manage().window().maximize();
 
+		// Load JSExecutor class so we can execute JS
 		JavascriptExecutor js = (JavascriptExecutor) webDriver;
+
+		// Use JS to scroll down 1000 bytes
 		js.executeScript("window.scrollBy(0,1000)");
+
+		// Wait 2 seconds
 		Thread.sleep(2000);
 
+		// Loof for Trip insurance link and click it
 		webDriver.findElement(By.linkText("Trip insurance")).click();
-		
-		Thread.sleep(5000);
+
 	}
 
 	/**
@@ -69,7 +77,7 @@ class InClassJavaScriptExecutorAssignment {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

@@ -24,7 +24,7 @@ class InClassUploadingAFileWithAssignment {
 	@BeforeEach
 	void setUp() throws Exception {
 		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
 		// Declare your webDriver class variable to a ChromeDriver WebDriver to
 		// communicate with Chrome.
@@ -32,35 +32,47 @@ class InClassUploadingAFileWithAssignment {
 	}
 
 	@Test
-	void test() throws InterruptedException {
+	void inClassUploadingAFileTest() throws InterruptedException {
+		// Set your starting web page.
 		String url = "http://uitestpractice.com/Students/Widgets";
 
+		// Open up your Chrome browser to the starting web page.
 		webDriver.get(url);
 
+		// Maximize the Chrome browser to fill the screen.
 		webDriver.manage().window().maximize();
-		
-		String targetFile = System.getProperty("user.dir") + "/screenshots/placeholder2.txt";
 
+		// Set local path to load file.
+		String targetFile = System.getProperty("user.dir") + "/screenshots/placeholder.txt";
+
+		// Find upload file button
 		WebElement chooseFileButton = webDriver.findElement(By.id("image_file"));
+
+		// Send local file path
 		chooseFileButton.sendKeys(targetFile);
-		
-		Thread.sleep(2000);
-		
+
+		// Locate upload file button
 		WebElement uploadForm = webDriver.findElement(By.xpath("//input[@value='Upload']"));
-		uploadForm.click();		
-		
+
+		// Click upload file
+		uploadForm.click();
+
+		// Set explicit wait 30 sec
 		WebDriverWait wait = new WebDriverWait(webDriver, 30);
+
+		// Wait until contact us is loaded
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.ContactUs")));
 
+		// Locate file uploaded window
 		WebElement fileUploadedWindow = webDriver.findElement(By.cssSelector("div.ContactUs"));
-		
+
+		// Verify file upload window is displayed
 		if (fileUploadedWindow.isDisplayed()) {
 			System.out.println("File is uploaded");
 		} else {
 			System.out.println("File is not uploaded");
 		}
-		
-		Thread.sleep(3000);
+
 	}
 
 	/**
@@ -86,7 +98,7 @@ class InClassUploadingAFileWithAssignment {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

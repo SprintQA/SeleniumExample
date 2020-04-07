@@ -12,8 +12,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 class UsingStaticTablesWithSeleniumExample {
-	// Declare WebDriver variable as a Class variable so we can use it through out
-	// the class.
 	WebDriver webDriver;
 
 	/**
@@ -23,68 +21,13 @@ class UsingStaticTablesWithSeleniumExample {
 	 * @throws Exception
 	 */
 	@BeforeEach
-	void setUp() throws Exception {
-		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+	void setUp() {
+		// Setup the System path to the Selenium Chrome Binary file
+		// Use System.getProperty("user.dir") to get the system path for the project.
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
-		// Declare your webDriver class variable to a ChromeDriver WebDriver to
-		// communicate with Chrome.
+		// Instantiate WebDriver to use ChromeDriver.
 		webDriver = new ChromeDriver();
-	}
-
-	@Test
-	void test() throws InterruptedException {
-		// Set your starting web page.
-		String url = "https://demoqa.com/automation-practice-table/";
-		
-		// Open up your Chrome browser to the starting web page.
-		webDriver.get(url);
-
-		// Maximize the Chrome browser to fill the screen.
-		webDriver.manage().window().maximize();
-
-		//	Use the browser to Locate the Locator you need to use to find the table headers. 
-		List<WebElement> cols = webDriver.findElements(By.xpath("//table[@summary='Sample Table']/thead/tr/th"));
-
-		// Write out the number of columns using the Collector size() method.
-		System.out.println("Number of columns is=" + cols.size());
-		
-		// Console line spacer to make it easier to read output
-		System.out.println("=======================");
-		// Console text identifier for data about
-		System.out.println("Printing column headers");
-		// Console line spacer to make it easier to read output
-		System.out.println("=======================");
-		
-		// Loop through the TH tags in Row 1
-		for(WebElement col: cols) {
-			//Write out the th cell data to the console.
-			System.out.println(col.getText());
-		}
-		
-		//getting number of rows
-		List<WebElement> rows = webDriver.findElements(By.xpath("//table[@summary='Sample Table']/tbody/tr"));
-		
-		//Console line spacer to make it easier to read output
-		System.out.println("=======================");
-		//Console text identifier for data about
-		System.out.println("Number of Rows is="+rows.size());
-		//Console line spacer to make it easier to read output
-		System.out.println("=======================");
-
-		Iterator <WebElement> it=rows.iterator();
-
-		//Console text identifier for data about
-		System.out.println("---Printing row data---");
-		System.out.println("=======================");
-		
-		// Iterate through Collection of rows
-		while(it.hasNext()) {
-			String rowText=it.next().getText();
-			System.out.println(rowText);
-		}
-		
-		Thread.sleep(3000);
 	}
 
 	/**
@@ -99,6 +42,62 @@ class UsingStaticTablesWithSeleniumExample {
 		webDriver.quit();
 	}
 
+	@Test
+	void usingStaticTablesTest() throws InterruptedException {
+		// Set your starting web page.
+		String url = "https://demoqa.com/automation-practice-table/";
+
+		// Open up your Chrome browser to the starting web page.
+		webDriver.get(url);
+
+		// Maximize the Chrome browser to fill the screen.
+		webDriver.manage().window().maximize();
+
+		// Use the browser to Locate the Locator you need to use to find the table
+		// headers.
+		List<WebElement> cols = webDriver.findElements(By.xpath("//table[@summary='Sample Table']/thead/tr/th"));
+
+		// Write out the number of columns using the Collector size() method.
+		System.out.println("Number of columns is=" + cols.size());
+
+		// Console line spacer to make it easier to read output
+		System.out.println("=======================");
+		// Console text identifier for data about
+		System.out.println("Printing column headers");
+		// Console line spacer to make it easier to read output
+		System.out.println("=======================");
+
+		// Loop through the TH tags in Row 1
+		for (WebElement col : cols) {
+			// Write out the th cell data to the console.
+			System.out.println(col.getText());
+		}
+
+		// getting number of rows
+		List<WebElement> rows = webDriver.findElements(By.xpath("//table[@summary='Sample Table']/tbody/tr"));
+
+		// Console line spacer to make it easier to read output
+		System.out.println("=======================");
+		// Console text identifier for data about
+		System.out.println("Number of Rows is=" + rows.size());
+		// Console line spacer to make it easier to read output
+		System.out.println("=======================");
+
+		Iterator<WebElement> it = rows.iterator();
+
+		// Console text identifier for data about
+		System.out.println("---Printing row data---");
+		System.out.println("=======================");
+
+		// Iterate through Collection of rows
+		while (it.hasNext()) {
+			String rowText = it.next().getText();
+			System.out.println(rowText);
+		}
+
+		Thread.sleep(3000);
+	}
+
 	/**
 	 * The System class maintains a Properties object that describes the
 	 * configuration of the current working environment. System properties include
@@ -110,7 +109,7 @@ class UsingStaticTablesWithSeleniumExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

@@ -9,8 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 class InClassMultipleWindowsExample {
-	// Declare WebDriver variable as a Class variable so we can use it through out
-	// the class.
 	WebDriver webDriver;
 
 	/**
@@ -20,82 +18,13 @@ class InClassMultipleWindowsExample {
 	 * @throws Exception
 	 */
 	@BeforeEach
-	void setUp() throws Exception {
-		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+	void setUp() {
+		// Setup the System path to the Selenium Chrome Binary file
+		// Use System.getProperty("user.dir") to get the system path for the project.
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
-		// Declare your webDriver class variable to a ChromeDriver WebDriver to
-		// communicate with Chrome.
+		// Instantiate WebDriver to use ChromeDriver.
 		webDriver = new ChromeDriver();
-	}
-
-	@Test
-	void test() throws InterruptedException {
-		// Set your starting web page.
-		String url = "https://omayo.blogspot.com/";
-
-		// Open up your Chrome browser to the starting web page.
-		webDriver.get(url);
-
-		// Maximize the Chrome browser to fill the screen.
-		webDriver.manage().window().maximize();
-
-/** 
- * Go to: https://omayo.blogspot.com/
- *	⁃ Look for the “Open in New Window Link” on left.
- *	⁃ Click the “Selenium Tutorial” link.
- *	⁃ Switch to the new window
- *	⁃ Get the text from number 6 under “Introduction to Selenium” and write it to the console.
- *	⁃ Close the window.
- *	⁃ Return to original window.
- *	⁃ Get text from “Text Area Field Two” and write it to the console.
- */		
-		String originalWindow = webDriver.getWindowHandle();
-		
-		//Get Link Element
-		WebElement newWindowLink = webDriver.findElement(By.xpath("//a[@target='_blank'][text()='SeleniumTutorial']"));
-		
-		//Click link to open second window
-		newWindowLink.click();
-		
-		//pause
-		Thread.sleep(3000);
-		
-		//Wait until second window is open
-		while (webDriver.getWindowHandles().size() < 2) {
-			Thread.sleep(1000);
-		}
-		
-		//Loop through window ids
-		for (String windowHandle : webDriver.getWindowHandles()) {
-			// Check to see if we have located a new window
-			if (!originalWindow.contentEquals(windowHandle)) {
-				// Use the switchTo() method to change controls to the new window
-				webDriver.switchTo().window(windowHandle);
-				break;
-			}
-		}		
-		
-		//Get Link Text Element
-		WebElement listElemnt = webDriver.findElement(By.partialLinkText("Firepath?"));
-		System.out.println(listElemnt.getText());
-		
-		// Close second window
-		webDriver.close();
-		
-		Thread.sleep(3000);
-		//Return to original window
-		webDriver.switchTo().window(originalWindow);
-		
-		//Get TextAre Element
-		WebElement textArea = webDriver.findElement(By.xpath("//textarea[@cols='30']"));
-		
-		//write the text to console
-		System.out.println(textArea.getText());
-		
-		// Pause the test
-		Thread.sleep(3000);
-
 	}
 
 	/**
@@ -110,6 +39,65 @@ class InClassMultipleWindowsExample {
 		webDriver.quit();
 	}
 
+	@Test
+	void inClassMultipleWindowsTest() throws InterruptedException {
+		// Set your starting web page.
+		String url = "https://omayo.blogspot.com/";
+
+		// Open up your Chrome browser to the starting web page.
+		webDriver.get(url);
+
+		// Maximize the Chrome browser to fill the screen.
+		webDriver.manage().window().maximize();
+
+		/**
+		 * Go to: https://omayo.blogspot.com/ ⁃ Look for the “Open in New Window Link”
+		 * on left. ⁃ Click the “Selenium Tutorial” link. ⁃ Switch to the new window ⁃
+		 * Get the text from number 6 under “Introduction to Selenium” and write it to
+		 * the console. ⁃ Close the window. ⁃ Return to original window. ⁃ Get text from
+		 * “Text Area Field Two” and write it to the console.
+		 */
+		String originalWindow = webDriver.getWindowHandle();
+
+		// Get Link Element
+		WebElement newWindowLink = webDriver.findElement(By.xpath("//a[@target='_blank'][text()='SeleniumTutorial']"));
+
+		// Click link to open second window
+		newWindowLink.click();
+
+		// Wait until second window is open
+		while (webDriver.getWindowHandles().size() < 2) {
+			Thread.sleep(1000);
+		}
+
+		// Loop through window ids
+		for (String windowHandle : webDriver.getWindowHandles()) {
+			// Check to see if we have located a new window
+			if (!originalWindow.contentEquals(windowHandle)) {
+				// Use the switchTo() method to change controls to the new window
+				webDriver.switchTo().window(windowHandle);
+				break;
+			}
+		}
+
+		// Get Link Text Element
+		WebElement listElemnt = webDriver.findElement(By.partialLinkText("Firepath?"));
+		System.out.println(listElemnt.getText());
+
+		// Close second window
+		webDriver.close();
+
+		// Return to original window
+		webDriver.switchTo().window(originalWindow);
+
+		// Get TextAre Element
+		WebElement textArea = webDriver.findElement(By.xpath("//textarea[@cols='30']"));
+
+		// write the text to console
+		System.out.println(textArea.getText());
+
+	}
+
 	/**
 	 * The System class maintains a Properties object that describes the
 	 * configuration of the current working environment. System properties include
@@ -121,7 +109,7 @@ class InClassMultipleWindowsExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

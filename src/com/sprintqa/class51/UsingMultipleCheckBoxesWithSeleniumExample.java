@@ -11,8 +11,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 class UsingMultipleCheckBoxesWithSeleniumExample {
-	// Declare WebDriver variable as a Class variable so we can use it through out
-	// the class.
 	WebDriver webDriver;
 
 	/**
@@ -22,14 +20,25 @@ class UsingMultipleCheckBoxesWithSeleniumExample {
 	 * @throws Exception
 	 */
 	@BeforeEach
-	void setUp() throws Exception {
-		// Register the Chrome Driver Binary to the system path so WebDriver can
-		// communicate with the Chrome browser
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\lanar\\Documents\\Selenium\\SeleniumExample\\webdrivers\\chromedriver.exe");
+	void setUp() {
+		// Setup the System path to the Selenium Chrome Binary file
+		// Use System.getProperty("user.dir") to get the system path for the project.
+		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/webdrivers/mac/chromedriver");
 
-		// Declare your webDriver class variable to a ChromeDriver WebDriver to
-		// communicate with Chrome.
+		// Instantiate WebDriver to use ChromeDriver.
 		webDriver = new ChromeDriver();
+	}
+
+	/**
+	 * Make sure when your done running your tests that you close the window/tab and
+	 * then exit out of the browser window.
+	 * 
+	 * @throws Exception
+	 */
+	@AfterEach
+	void tearDown() throws Exception {
+		webDriver.close();
+		webDriver.quit();
 	}
 
 	/**
@@ -52,44 +61,32 @@ class UsingMultipleCheckBoxesWithSeleniumExample {
 		// Click the check all button to populate all the check boxes.
 		checkBoxButton.click();
 
-		// So in this example the check boxes do not have an id but they do share the same 
-		// CSS so we can use the css selector tag.class. 
+		// So in this example the check boxes do not have an id but they do share the
+		// same
+		// CSS so we can use the css selector tag.class.
 		List<WebElement> checkBoxList = webDriver.findElements(By.cssSelector("input.cb1-element"));
 
-		// Local variable to set which check box to click. 
+		// Local variable to set which check box to click.
 		int option = 1;
 
 		// Loop though list of check boxes
 		for (WebElement checkBox : checkBoxList) {
-			
+
 			// On the second loop through click the check box
 			if (option == 2)
 				checkBox.click();
 
 			// Check to see if the check box is selected
 			if (checkBox.isSelected()) {
-				
+
 				// Write the output of our test to the System console.
-				System.out.println("Checkbox Option "+ option +" isSelected()");
+				System.out.println("Checkbox Option " + option + " isSelected()");
 			}
-			
-			// Increment count 
+
+			// Increment count
 			option++;
 		}
 
-		Thread.sleep(5000);
-	}
-	
-	/**
-	 * Make sure when your done running your tests that you close the window/tab and
-	 * then exit out of the browser window.
-	 * 
-	 * @throws Exception
-	 */
-	@AfterEach
-	void tearDown() throws Exception {
-		webDriver.close();
-		webDriver.quit();
 	}
 
 }

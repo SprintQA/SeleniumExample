@@ -20,20 +20,21 @@ public class LoginTest {
 
 	@Before
 	public void setUp() {
-		System.setProperty("webdriver.chrome.driver","C:\\Users\\lanar\\eclipse-workspace\\"
-		  		+ "SeleniumExamples\\webdrivers\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver",
+				"C:\\Users\\lanar\\eclipse-workspace\\" + "SeleniumExamples\\webdrivers\\chromedriver.exe");
 		driver = new ChromeDriver();
 		js = (JavascriptExecutor) driver;
 		vars = new HashMap<String, Object>();
 	}
+
 	@After
 	public void tearDown() {
 		driver.quit();
 	}
 
 	@Test
-	public void loginTest() { 
-		
+	public void loginTest() {
+
 		// Test name: Login Test
 		// Step # | name | target | value | comment
 		// 1 | open | / | |

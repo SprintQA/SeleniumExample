@@ -11,8 +11,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 class SimpleJQueryDatePickerWithSeleniumExample {
-	// Declare WebDriver variable as a Class variable so we can use it through out
-	// the class.
 	WebDriver webDriver;
 
 	/**
@@ -22,53 +20,13 @@ class SimpleJQueryDatePickerWithSeleniumExample {
 	 * @throws Exception
 	 */
 	@BeforeEach
-	void setUp() throws Exception {
-		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+	void setUp() {
+		// Setup the System path to the Selenium Chrome Binary file
+		// Use System.getProperty("user.dir") to get the system path for the project.
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
-		// Declare your webDriver class variable to a ChromeDriver WebDriver to
-		// communicate with Chrome.
+		// Instantiate WebDriver to use ChromeDriver.
 		webDriver = new ChromeDriver();
-	}
-
-	@Test
-	void test() throws InterruptedException {
-		String url = "http://jqueryui.com/datepicker/";
-
-		webDriver.get(url);
-
-		webDriver.manage().window().maximize();
-
-		// Locate the Locator for iFrame that Date input field resides
-		WebElement frame = webDriver.findElement(By.cssSelector("iframe.demo-frame"));
-		
-		// Switch to the iFrame
-		webDriver.switchTo().frame(frame);
-
-		// Locate the Date input field and click it 
-		webDriver.findElement(By.id("datepicker")).click();
-		Thread.sleep(1000);
-		
-		// Locate the Locator to get all calendar dates inside the ui-datepicker-calendar table
-		List<WebElement> dates = webDriver.findElements(By.xpath("//table[@class='ui-datepicker-calendar']/tbody/tr/td"));
-		
-		String text = "";
-		// Loop through the columns of table data
-		for (WebElement day : dates) {
-
-			// Get the column displayed text and store it in a Sting variable
-			text = day.getText();
-			
-			// Write the displayed text to the System.out console.
-			System.out.println(text);
-			
-			// If the column text equals 30 click the cell.
-			if (text.equals("30")) {
-				day.click();
-			}
-		}
-		
-		Thread.sleep(3000);
 	}
 
 	/**
@@ -83,6 +41,52 @@ class SimpleJQueryDatePickerWithSeleniumExample {
 		webDriver.quit();
 	}
 
+	@Test
+	void simpleJQueryDatePickerTest() throws InterruptedException {
+		// Set your starting web page.
+		String url = "http://jqueryui.com/datepicker/";
+
+		// Open up your Chrome browser to the starting web page.
+		webDriver.get(url);
+
+		// Maximize the Chrome browser to fill the screen.
+		webDriver.manage().window().maximize();
+
+		// Locate the Locator for iFrame that Date input field resides
+		WebElement frame = webDriver.findElement(By.cssSelector("iframe.demo-frame"));
+
+		// Switch to the iFrame
+		webDriver.switchTo().frame(frame);
+
+		// Locate the Date input field and click it
+		webDriver.findElement(By.id("datepicker")).click();
+
+		// Wait for page to refresh
+		Thread.sleep(1000);
+
+		// Locate the Locator to get all calendar dates inside the
+		// ui-datepicker-calendar table
+		List<WebElement> dates = webDriver
+				.findElements(By.xpath("//table[@class='ui-datepicker-calendar']/tbody/tr/td"));
+
+		String text = "";
+		// Loop through the columns of table data
+		for (WebElement day : dates) {
+
+			// Get the column displayed text and store it in a Sting variable
+			text = day.getText();
+
+			// Write the displayed text to the System.out console.
+			System.out.println(text);
+
+			// If the column text equals 30 click the cell.
+			if (text.equals("30")) {
+				day.click();
+			}
+		}
+
+	}
+
 	/**
 	 * The System class maintains a Properties object that describes the
 	 * configuration of the current working environment. System properties include
@@ -94,7 +98,7 @@ class SimpleJQueryDatePickerWithSeleniumExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

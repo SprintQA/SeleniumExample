@@ -34,67 +34,71 @@ class DownlaodAFileWithSeleniumExample {
 	@BeforeEach
 	void setUp() throws Exception {
 		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
-		// Create a HashMap to store additional browser settings		
+		// Create a HashMap to store additional browser settings
 		HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
 
-		// Disable the save to folder popup		
+		// Disable the save to folder popup
 		chromePrefs.put("profile.default_content_settings.popups", 0);
 
-		// Change the default download directory		
+		// Change the default download directory
 		chromePrefs.put("download.default_directory", System.getProperty("user.dir"));
 
-		// Declare ChromeOptions to enable browser settings	
+		// Declare ChromeOptions to enable browser settings
 		ChromeOptions options = new ChromeOptions();
-		
+
 		// set Experimental Option "prefs" with your HashMap values.
 		options.setExperimentalOption("prefs", chromePrefs);
-		
+
 		// Declare your webDriver class variable to a ChromeDriver WebDriver to
 		// communicate with Chrome. Pass in Chrome Options.
 		webDriver = new ChromeDriver(options);
 	}
 
 	@Test
-	void test() throws InterruptedException {
+	void downlaodAFileWithSeleniumTest() throws InterruptedException {
+		// Set your starting web page.
 		String url = "https://www.thinkbroadband.com/download";
 
+		// Open up your Chrome browser to the starting web page.
 		webDriver.get(url);
 
+		// Maximize the Chrome browser to fill the screen.
 		webDriver.manage().window().maximize();
 
 		// We find the download links
 		List<WebElement> list = webDriver.findElements(By.cssSelector("div.module>p>a>img"));
 
 		// Click the last one to downaload 5MB file :)
-		WebElement extraSmallFileImgLink  = list.get(list.size() - 1);
+		WebElement extraSmallFileImgLink = list.get(list.size() - 1);
 
 		// Set Explicit wait time to 25s
 		WebDriverWait wait = new WebDriverWait(webDriver, 25);
-		
+
 		// Wait until the extraSmallFileImgLink is visible and click it.
 		wait.until(ExpectedConditions.visibilityOf(extraSmallFileImgLink));
+
+		// Click extra small file link
 		extraSmallFileImgLink.click();
 
 		// When we clicked the extraSmallFileImgLink a file
 		// 5MB.zip should be down loaded to the specified output folder.
 		String expectedFileName = "5MB.zip";
-		
+
 		// Create a File object with user path and expected file name.
 		File targetFile = new File(System.getProperty("user.dir"), expectedFileName);
-		
+
 		// Wait for the file to download
 		// Set wait time 30s
 		// Check until condition every second
-		Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(webDriver)
-				.withTimeout(Duration.ofSeconds(30))
+		Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(webDriver).withTimeout(Duration.ofSeconds(30))
 				.pollingEvery(Duration.ofSeconds(1));
 
-		// Use Java lambda to wait until file.exists 
+		// Use Java lambda to wait until file.exists
 		// or we reach out timeout limit.
 		fluentWait.until(fileExists -> targetFile.exists());
-		
+
 		// if file is not present – fail test
 		if (!targetFile.exists()) {
 			fail("File is not present");
@@ -103,7 +107,6 @@ class DownlaodAFileWithSeleniumExample {
 			targetFile.delete();
 		}
 
-		Thread.sleep(3000);
 	}
 
 	/**
@@ -129,7 +132,7 @@ class DownlaodAFileWithSeleniumExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

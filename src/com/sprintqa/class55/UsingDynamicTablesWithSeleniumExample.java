@@ -11,8 +11,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 class UsingDynamicTablesWithSeleniumExample {
-	// Declare WebDriver variable as a Class variable so we can use it through out
-	// the class.
 	WebDriver webDriver;
 
 	/**
@@ -22,21 +20,36 @@ class UsingDynamicTablesWithSeleniumExample {
 	 * @throws Exception
 	 */
 	@BeforeEach
-	void setUp() throws Exception {
-		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+	void setUp() {
+		// Setup the System path to the Selenium Chrome Binary file
+		// Use System.getProperty("user.dir") to get the system path for the project.
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
-		// Declare your webDriver class variable to a ChromeDriver WebDriver to
-		// communicate with Chrome.
+		// Instantiate WebDriver to use ChromeDriver.
 		webDriver = new ChromeDriver();
 	}
 
+	/**
+	 * Make sure when your done running your tests that you close the window/tab and
+	 * then exit out of the browser window.
+	 * 
+	 * @throws Exception
+	 */
+	@AfterEach
+	void tearDown() throws Exception {
+		webDriver.close();
+		webDriver.quit();
+	}
+
 	@Test
-	void test() throws InterruptedException {
+	void usingDynamicTablesTest() throws InterruptedException {
+		// Set your starting web page.
 		String url = "https://opensource-demo.orangehrmlive.com/index.php/admin/viewSystemUsers";
 
+		// Open up your Chrome browser to the starting web page.
 		webDriver.get(url);
 
+		// Maximize the Chrome browser to fill the screen.
 		webDriver.manage().window().maximize();
 
 		// Locate the Locator for user name input and enter "Admin" text
@@ -77,8 +90,8 @@ class UsingDynamicTablesWithSeleniumExample {
 
 		// Loop through rows
 		for (int i = 1; i <= rows.size(); i++) {
-			 
-			//Get the text of the current row and store it in our string row data
+
+			// Get the text of the current row and store it in our string row data
 			rowData = webDriver.findElement(By.xpath("//table[@id='resultTable']/tbody/tr[" + i + "]")).getText();
 			System.out.println(rowData);
 
@@ -92,19 +105,6 @@ class UsingDynamicTablesWithSeleniumExample {
 
 		}
 
-		Thread.sleep(3000);
-	}
-
-	/**
-	 * Make sure when your done running your tests that you close the window/tab and
-	 * then exit out of the browser window.
-	 * 
-	 * @throws Exception
-	 */
-	@AfterEach
-	void tearDown() throws Exception {
-		webDriver.close();
-		webDriver.quit();
 	}
 
 	/**
@@ -118,7 +118,7 @@ class UsingDynamicTablesWithSeleniumExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

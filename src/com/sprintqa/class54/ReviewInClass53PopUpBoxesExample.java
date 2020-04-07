@@ -10,8 +10,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 class ReviewInClass53PopUpBoxesExample {
-	// Declare WebDriver variable as a Class variable so we can use it through out
-	// the class.
 	WebDriver webDriver;
 
 	/**
@@ -21,68 +19,13 @@ class ReviewInClass53PopUpBoxesExample {
 	 * @throws Exception
 	 */
 	@BeforeEach
-	void setUp() throws Exception {
-		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+	void setUp() {
+		// Setup the System path to the Selenium Chrome Binary file
+		// Use System.getProperty("user.dir") to get the system path for the project.
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
-		// Declare your webDriver class variable to a ChromeDriver WebDriver to
-		// communicate with Chrome.
+		// Instantiate WebDriver to use ChromeDriver.
 		webDriver = new ChromeDriver();
-	}
-
-	@Test
-	void test() throws InterruptedException {
-		String url = "https://only-testing-blog.blogspot.com/2014/01/textbox.html";
-
-		webDriver.get(url);
-
-		webDriver.manage().window().maximize();
-
-		WebElement alertButton = webDriver.findElement(By.xpath("//input[@value='Show Me Alert']"));
-		alertButton.click();
-
-		Alert alert = webDriver.switchTo().alert();
-
-		System.out.println(alert.getText());
-
-		alert.accept();
-
-		webDriver.switchTo().defaultContent();
-
-		WebElement confimButton = webDriver.findElement(By.xpath("//button[text()='Show Me Confirmation']"));
-		
-		confimButton.click();
-		
-		alert = webDriver.switchTo().alert();
-		
-		System.out.println(alert.getText());
-		Thread.sleep(3000);
-
-		alert.accept();
-
-		webDriver.switchTo().defaultContent();
-
-		WebElement demoDiv = webDriver.findElement(By.id("demo"));
-		
-		System.out.println(demoDiv.getText());
-		Thread.sleep(3000);
-
-		confimButton.click();
-		
-		alert = webDriver.switchTo().alert();
-		
-		System.out.println(alert.getText());
-		Thread.sleep(3000);
-
-		alert.dismiss();
-
-		webDriver.switchTo().defaultContent();
-
-		demoDiv = webDriver.findElement(By.id("demo"));
-		
-		System.out.println(demoDiv.getText());
-
-		Thread.sleep(3000);
 	}
 
 	/**
@@ -97,6 +40,82 @@ class ReviewInClass53PopUpBoxesExample {
 		webDriver.quit();
 	}
 
+	@Test
+	void reviewInClass53PopUpBoxesTest() throws InterruptedException {
+		// Set your starting web page.
+		String url = "https://only-testing-blog.blogspot.com/2014/01/textbox.html";
+
+		// Open up your Chrome browser to the starting web page.
+		webDriver.get(url);
+
+		// Maximize the Chrome browser to fill the screen.
+		webDriver.manage().window().maximize();
+
+		// Search the web page for the check all button using the locator id.
+		WebElement alertButton = webDriver.findElement(By.xpath("//input[@value='Show Me Alert']"));
+
+		// Click the button to display the alert
+		alertButton.click();
+
+		// Get the Alert pop up
+		Alert alert = webDriver.switchTo().alert();
+
+		// Write the text to the console
+		System.out.println(alert.getText());
+
+		// Click the ok button
+		alert.accept();
+
+		// Return to the calling window
+		webDriver.switchTo().defaultContent();
+
+		// Search the web page for the check all button using the locator id.
+		WebElement confimButton = webDriver.findElement(By.xpath("//button[text()='Show Me Confirmation']"));
+
+		// Click the continue button
+		confimButton.click();
+
+		// switch to the alert box
+		alert = webDriver.switchTo().alert();
+
+		// Write the alert text to the console
+		System.out.println(alert.getText());
+
+		// Click the ok popup
+		alert.accept();
+
+		// Switch back to the original window
+		webDriver.switchTo().defaultContent();
+
+		// Search the web page for the check all button using the locator id.
+		WebElement demoDiv = webDriver.findElement(By.id("demo"));
+
+		// write the displayed text to the console
+		System.out.println(demoDiv.getText());
+
+		// Click the confirm button to display confirm box
+		confimButton.click();
+
+		// Switch to alert box
+		alert = webDriver.switchTo().alert();
+
+		// Write the alert text to console
+		System.out.println(alert.getText());
+
+		// Click the close button
+		alert.dismiss();
+
+		// Switch to the main window
+		webDriver.switchTo().defaultContent();
+
+		// Get the displayed text
+		demoDiv = webDriver.findElement(By.id("demo"));
+
+		// Write the displayed text to console
+		System.out.println(demoDiv.getText());
+
+	}
+
 	/**
 	 * The System class maintains a Properties object that describes the
 	 * configuration of the current working environment. System properties include
@@ -108,7 +127,7 @@ class ReviewInClass53PopUpBoxesExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

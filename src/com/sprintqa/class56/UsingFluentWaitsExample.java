@@ -29,7 +29,7 @@ class UsingFluentWaitsExample {
 	@BeforeEach
 	void setUp() throws Exception {
 		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
 		// Declare your webDriver class variable to a ChromeDriver WebDriver to
 		// communicate with Chrome.
@@ -37,12 +37,14 @@ class UsingFluentWaitsExample {
 	}
 
 	@Test
-	void test() throws InterruptedException {
-
+	void usingFluentWaitsTest() throws InterruptedException {
+		// Set your starting web page.
 		String url = "http://uitestpractice.com";
 
+		// Open up your Chrome browser to the starting web page.
 		webDriver.get(url);
 
+		// Maximize the Chrome browser to fill the screen.
 		webDriver.manage().window().maximize();
 
 		// Locate the Locator for the link "AjaxCall" and click it
@@ -52,10 +54,8 @@ class UsingFluentWaitsExample {
 		webDriver.findElement(By.linkText("This is a Ajax link")).click();
 
 		// Preparing the explicit wait.
-		Wait<WebDriver> wait = new FluentWait<WebDriver>(webDriver)
-				.withTimeout(Duration.ofSeconds(30))
-				.pollingEvery(Duration.ofSeconds(5))
-				.ignoring(NoSuchElementException.class);
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(webDriver).withTimeout(Duration.ofSeconds(30))
+				.pollingEvery(Duration.ofSeconds(5)).ignoring(NoSuchElementException.class);
 
 		// Wait for the presence Of the "ContactUs" Div Element to be Located.
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.ContactUs")));
@@ -79,7 +79,6 @@ class UsingFluentWaitsExample {
 			System.out.println("Contact Div is Not displayed");
 		}
 
-		Thread.sleep(3000);
 	}
 
 	/**
@@ -105,7 +104,7 @@ class UsingFluentWaitsExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

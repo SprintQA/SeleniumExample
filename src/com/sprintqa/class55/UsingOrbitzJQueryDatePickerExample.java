@@ -8,8 +8,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 class UsingOrbitzJQueryDatePickerExample {
-	// Declare WebDriver variable as a Class variable so we can use it through out
-	// the class.
 	WebDriver webDriver;
 
 	/**
@@ -19,55 +17,13 @@ class UsingOrbitzJQueryDatePickerExample {
 	 * @throws Exception
 	 */
 	@BeforeEach
-	void setUp() throws Exception {
-		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+	void setUp() {
+		// Setup the System path to the Selenium Chrome Binary file
+		// Use System.getProperty("user.dir") to get the system path for the project.
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
-		// Declare your webDriver class variable to a ChromeDriver WebDriver to
-		// communicate with Chrome.
+		// Instantiate WebDriver to use ChromeDriver.
 		webDriver = new ChromeDriver();
-	}
-
-	@Test
-	void test() throws InterruptedException {
-		String url = "https://www.orbitz.com/";
-
-		webDriver.get(url);
-
-		webDriver.manage().window().maximize();
-
-		// Locate the check in input box and click it to bring up the DataPicker
-		webDriver.findElement(By.id("hotel-checkin-hp-hotel")).click();
-		Thread.sleep(3000);
-
-		// Locate the left calendars Date Picker Calendar Month Caption and store it in a By variable.
-		By datepickerCalMonthCaptionCssSelector = By.cssSelector("div.datepicker-cal-month > table > caption");
-
-		// Get the displayed text from the the left calendars Date Picker Calendar Month Caption and store it in a String variable calendarDisplayedMonth.
-		String calendarDisplayedMonth=webDriver.findElement(datepickerCalMonthCaptionCssSelector).getText();
-		
-		// Write the String variable calendarDisplayedMonth to the System.out console.
-		System.out.println(calendarDisplayedMonth);
-
-		// Check the String variable calendarDisplayedMonth to see if it is currently Jan 2021
-		if(!calendarDisplayedMonth.equals("Jan 2021")) {
-
-			// Create a do/while loop to loop until the left calendars Date Picker Calendar Month Caption is Jan 2021
-			do {
-				
-				// Locate the Date Picker Calendar next button and click it
-				webDriver.findElement(By.cssSelector("button.next")).click();
-				
-				// Pause for 1 sec between clocks to give the calendar time to refreash
-				Thread.sleep(1000);
-				
-			}while(! webDriver.findElement(datepickerCalMonthCaptionCssSelector).getText().equals("Jan 2021"));
-		}
-		
-		// Click on Jan 31 2021
-		webDriver.findElement(By.xpath("//button[@data-year='2021'][@data-month='0'][@data-day='31']")).click();
-		
-		Thread.sleep(3000);
 	}
 
 	/**
@@ -82,6 +38,53 @@ class UsingOrbitzJQueryDatePickerExample {
 		webDriver.quit();
 	}
 
+	@Test
+	void usingOrbitzJQueryDatePickerTest() throws InterruptedException {
+		// Set your starting web page.
+		String url = "https://www.orbitz.com/";
+
+		// Open up your Chrome browser to the starting web page.
+		webDriver.get(url);
+
+		// Maximize the Chrome browser to fill the screen.
+		webDriver.manage().window().maximize();
+
+		// Locate the check in input box and click it to bring up the DataPicker
+		webDriver.findElement(By.id("hotel-checkin-hp-hotel")).click();
+
+		// Locate the left calendars Date Picker Calendar Month Caption and store it in
+		// a By variable.
+		By datepickerCalMonthCaptionCssSelector = By.cssSelector("div.datepicker-cal-month > table > caption");
+
+		// Get the displayed text from the the left calendars Date Picker Calendar Month
+		// Caption and store it in a String variable calendarDisplayedMonth.
+		String calendarDisplayedMonth = webDriver.findElement(datepickerCalMonthCaptionCssSelector).getText();
+
+			// Write the String variable calendarDisplayedMonth to the System.out console.
+		System.out.println(calendarDisplayedMonth);
+
+		// Check the String variable calendarDisplayedMonth to see if it is currently
+		// Jan 2021
+		if (!calendarDisplayedMonth.equals("Jan 2021")) {
+
+			// Create a do/while loop to loop until the left calendars Date Picker Calendar
+			// Month Caption is Jan 2021
+			do {
+
+				// Locate the Date Picker Calendar next button and click it
+				webDriver.findElement(By.cssSelector("button.next")).click();
+
+				// Pause for 1 sec between clocks to give the calendar time to refreash
+				Thread.sleep(1000);
+
+			} while (!webDriver.findElement(datepickerCalMonthCaptionCssSelector).getText().equals("Jan 2021"));
+		}
+
+		// Click on Jan 31 2021
+		webDriver.findElement(By.xpath("//button[@data-year='2021'][@data-month='0'][@data-day='31']")).click();
+
+	}
+
 	/**
 	 * The System class maintains a Properties object that describes the
 	 * configuration of the current working environment. System properties include
@@ -93,7 +96,7 @@ class UsingOrbitzJQueryDatePickerExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

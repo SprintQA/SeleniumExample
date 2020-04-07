@@ -2,7 +2,6 @@ package com.sprintqa.class58;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -31,7 +30,7 @@ class InclassScreenshotsAssignment {
 	@BeforeEach
 	void setUp() throws Exception {
 		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
 		// Declare your webDriver class variable to a ChromeDriver WebDriver to
 		// communicate with Chrome.
@@ -39,41 +38,62 @@ class InclassScreenshotsAssignment {
 	}
 
 	@Test
-	void test() throws InterruptedException {
+	void inclassScreenshotsTest() throws InterruptedException {
 		String url = "https://opensource-demo.orangehrmlive.com/index.php/auth/login";
 
+		// Open up your Chrome browser to the starting web page.
 		webDriver.get(url);
 
+		// Maximize the Chrome browser to fill the screen.
 		webDriver.manage().window().maximize();
 
+		// Cast webDriver to TakeScreenShot class so we can capture
+		// Screenshots of the browser
 		TakesScreenshot ts = (TakesScreenshot) webDriver;
 
+		// Set input screenshot file type and location
 		File screenShot = ts.getScreenshotAs(OutputType.FILE);
+
+		// Set output screenshot file location
 		File outputFile = new File("screenshots/OnPageLoad.png");
 
 		try {
+			// Establish an input stream to read screenshot into memory
 			InputStream inputStream = new FileInputStream(screenShot);
+
+			// Use copy method to take input stream and write it to a
+			// file on the local machine.
 			Files.copy(inputStream, outputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+			// Close input stream when done saving file.
 			inputStream.close();
 
 			// Populate input fields
 			webDriver.findElement(By.id("txtUsername")).sendKeys("Admin");
 			webDriver.findElement(By.id("txtPassword")).sendKeys("admin123");
 
+			// Capture screen shot
 			screenShot = ts.getScreenshotAs(OutputType.FILE);
+
+			// Set output screenshot file location
 			outputFile = new File("screenshots/BeforeLogin.png");
 
+			// Establish an input stream to read screenshot into memory
 			inputStream = new FileInputStream(screenShot);
+
+			// Use copy method to take input stream and write it to a
+			// file on the local machine.
 			Files.copy(inputStream, outputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+			// Close input stream when done saving file.
 			inputStream.close();
 
+			// Find the submit button and log into the site.
 			webDriver.findElement(By.id("frmLogin")).submit();
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		Thread.sleep(3000);
 
 	}
 
@@ -100,7 +120,7 @@ class InclassScreenshotsAssignment {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

@@ -24,7 +24,7 @@ class UploadingAFileWithSeleniumExample {
 	@BeforeEach
 	void setUp() throws Exception {
 		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
 		// Declare your webDriver class variable to a ChromeDriver WebDriver to
 		// communicate with Chrome.
@@ -32,11 +32,14 @@ class UploadingAFileWithSeleniumExample {
 	}
 
 	@Test
-	void test() throws InterruptedException {
+	void uploadingAFileTest() throws InterruptedException {
+		// Set your starting web page.
 		String url = "http://the-internet.herokuapp.com";
 
+		// Open up your Chrome browser to the starting web page.
 		webDriver.get(url);
 
+		// Maximize the Chrome browser to fill the screen.
 		webDriver.manage().window().maximize();
 
 		// Create a String object and set its value to be the
@@ -58,7 +61,7 @@ class UploadingAFileWithSeleniumExample {
 
 		// Define our Explicit wait timeout.
 		WebDriverWait wait = new WebDriverWait(webDriver, 30);
-		
+
 		// ExplitWait for fileUploadedWindow to be visible.
 		wait.until(ExpectedConditions.visibilityOf(fileUploadedWindow));
 
@@ -69,7 +72,6 @@ class UploadingAFileWithSeleniumExample {
 			System.out.println("File is not uploaded");
 		}
 
-		Thread.sleep(3000);
 	}
 
 	/**
@@ -95,7 +97,7 @@ class UploadingAFileWithSeleniumExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

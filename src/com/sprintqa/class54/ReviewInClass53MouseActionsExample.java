@@ -10,8 +10,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
 class ReviewInClass53MouseActionsExample {
-	// Declare WebDriver variable as a Class variable so we can use it through out
-	// the class.
 	WebDriver webDriver;
 
 	/**
@@ -21,72 +19,13 @@ class ReviewInClass53MouseActionsExample {
 	 * @throws Exception
 	 */
 	@BeforeEach
-	void setUp() throws Exception {
-		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+	void setUp() {
+		// Setup the System path to the Selenium Chrome Binary file
+		// Use System.getProperty("user.dir") to get the system path for the project.
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
-		// Declare your webDriver class variable to a ChromeDriver WebDriver to
-		// communicate with Chrome.
+		// Instantiate WebDriver to use ChromeDriver.
 		webDriver = new ChromeDriver();
-	}
-
-	@Test
-	void test() throws InterruptedException {
-		// Set your starting web page.
-		String url = "http://uitestpractice.com/";
-
-		// Open up your Chrome browser to the starting web page.
-		webDriver.get(url);
-
-		// Maximize the Chrome browser to fill the screen.
-		webDriver.manage().window().maximize();
-				
-/**
- * Go to: http://uitestpractice.com/
- *	⁃ Perform the following Actions:
- *		⁃ Drag the “Drag me to my target” box to the “Drop here” box”.
- *		⁃ Double click the “Double Click ME!” Button.
- *	⁃ Get text from alert box and write it to the console.
- *	⁃ Click OK on alert box.
- *	⁃ Click the “Toggle icons” button.
- */
-		// Declare an Actions variable and instantiate it by
-		// passing the webDriver to the Actions(WebDriver) constructor.
-		// This will allow are actions variable to interact with the 
-		// webpage.
-		Actions act = new Actions(webDriver);
-		
-		//Find our drag and drop elements by id
-		WebElement dragItem = webDriver.findElement(By.id("draggable"));
-		WebElement dropItem = webDriver.findElement(By.id("droppable"));
-		
-		//drags dragItem onto dropItem 
-		act.dragAndDrop(dragItem, dropItem).build().perform();
-		
-		Thread.sleep(3000);
-		
-		//Find our drag and drop elements
-		WebElement doubleClickButton = webDriver.findElement(By.name("dblClick"));
-		
-		//perform double click on button
-		act.moveToElement(doubleClickButton).doubleClick().build().perform();
-		
-		Thread.sleep(3000);	
-		//Switch to the alert box and click ok
-		webDriver.switchTo().alert().accept();
-		
-		// Switch to the default open window
-		webDriver.switchTo().defaultContent();
-		
-		//Locate toggle button by id
-		WebElement toggleClickButton = webDriver.findElement(By.id("toggle"));
-
-		//click toggle button
-		toggleClickButton.click();
-		
-		// Pause the test
-		Thread.sleep(3000);
-
 	}
 
 	/**
@@ -101,6 +40,56 @@ class ReviewInClass53MouseActionsExample {
 		webDriver.quit();
 	}
 
+	@Test
+	void reviewInClass53MouseActionsTest() throws InterruptedException {
+		// Set your starting web page.
+		String url = "http://uitestpractice.com/";
+
+		// Open up your Chrome browser to the starting web page.
+		webDriver.get(url);
+
+		// Maximize the Chrome browser to fill the screen.
+		webDriver.manage().window().maximize();
+
+		/**
+		 * Go to: http://uitestpractice.com/ ⁃ Perform the following Actions: ⁃ Drag the
+		 * “Drag me to my target” box to the “Drop here” box”. ⁃ Double click the
+		 * “Double Click ME!” Button. ⁃ Get text from alert box and write it to the
+		 * console. ⁃ Click OK on alert box. ⁃ Click the “Toggle icons” button.
+		 */
+		// Declare an Actions variable and instantiate it by
+		// passing the webDriver to the Actions(WebDriver) constructor.
+		// This will allow are actions variable to interact with the
+		// webpage.
+		Actions act = new Actions(webDriver);
+
+		// Find our drag and drop elements by id
+		WebElement dragItem = webDriver.findElement(By.id("draggable"));
+		WebElement dropItem = webDriver.findElement(By.id("droppable"));
+
+		// drags dragItem onto dropItem
+		act.dragAndDrop(dragItem, dropItem).build().perform();
+
+		// Find our drag and drop elements
+		WebElement doubleClickButton = webDriver.findElement(By.name("dblClick"));
+
+		// perform double click on button
+		act.moveToElement(doubleClickButton).doubleClick().build().perform();
+
+		// Switch to the alert box and click ok
+		webDriver.switchTo().alert().accept();
+
+		// Switch to the default open window
+		webDriver.switchTo().defaultContent();
+
+		// Locate toggle button by id
+		WebElement toggleClickButton = webDriver.findElement(By.id("toggle"));
+
+		// click toggle button
+		toggleClickButton.click();
+
+	}
+
 	/**
 	 * The System class maintains a Properties object that describes the
 	 * configuration of the current working environment. System properties include
@@ -112,7 +101,7 @@ class ReviewInClass53MouseActionsExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

@@ -1,0 +1,26 @@
+1. Create your utils folder and create the following files:
+	BaseClass
+	CommonMethods
+	ConfigReader
+	Constants
+
+2. Created your resources and configs folder and create the following files:
+	credentials.properties
+
+3. Modify one of your existing tests to work with the new Utility files.
+
+4. Add remaining Common Methods
+	void acceptAlert()
+	void dismissAlert()
+	void String getAlertText()
+	void switchToFrame(String idOrName)
+	void switchToFrame(WebElement element)
+	void switchToFrame(int index)
+	void waitForElementBeVisible(WebElement element, int time)
+	void waitForElementBeVisible(By locator, int time)
+	void waitForElementBeClickable(WebElement element, int time)
+	void waitForElementBeClickable(By locator, int time)
+	void takeScreenshot(String fileName)
+	void scrollDown(int pixels)
+	void scrollUp(int pixels)
+	void jsClick(WebElement element)

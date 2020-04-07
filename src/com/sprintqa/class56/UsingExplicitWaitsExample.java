@@ -23,7 +23,7 @@ class UsingExplicitWaitsExample {
 	@BeforeEach
 	void setUp() throws Exception {
 		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
 		// Declare your webDriver class variable to a ChromeDriver WebDriver to
 		// communicate with Chrome.
@@ -31,36 +31,37 @@ class UsingExplicitWaitsExample {
 	}
 
 	@Test
-	void test() throws InterruptedException {
-
+	void usingExplicitWaitsTest() throws InterruptedException {
+		// Set your starting web page.
 		String url = "http://uitestpractice.com";
 
+		// Open up your Chrome browser to the starting web page.
 		webDriver.get(url);
 
+		// Maximize the Chrome browser to fill the screen.
 		webDriver.manage().window().maximize();
 
 		// Preparing the explicit wait.
 		WebDriverWait wait = new WebDriverWait(webDriver, 30);
-		
+
 		wait.until(ExpectedConditions.elementToBeClickable(By.linkText("AjaxCall")));
-		
+
 		// Locate the Locator for the link "AjaxCall" and click it
 		webDriver.findElement(By.linkText("AjaxCall")).click();
 
 		// Locate the Locator for the link "This is a Ajax link" and click it
 		webDriver.findElement(By.linkText("This is a Ajax link")).click();
-		
+
 		// Wait for the presence Of the "ContactUs" Div Element to be Located.
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.ContactUs")));
 
 		// Wait for the Element "ContactUs" Div Element to be visible
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.ContactUs")));
-		
+
 		// Get the "ContactUs" div text and write it to the System.out console.
 		String elText = webDriver.findElement(By.cssSelector("div.ContactUs")).getText();
 		System.out.println(elText);
 
-		Thread.sleep(3000);
 	}
 
 	/**
@@ -86,7 +87,7 @@ class UsingExplicitWaitsExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

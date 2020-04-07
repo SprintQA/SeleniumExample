@@ -1,5 +1,7 @@
 package com.sprintqa.class51;
+
 import java.util.List;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,18 +12,34 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
 class InClassDropDownExample {
-	// Declare WebDriver variable as a Class variable so we can use it through out the class.
 	WebDriver webDriver;
 
-	// Remember to configure your System path so the application can find your ChromeDriver binary files.
-	
+	/**
+	 * Remember to configure your System path so the application can find your
+	 * ChromeDriver binary files.
+	 * 
+	 * @throws Exception
+	 */
 	@BeforeEach
-	void setUp() throws Exception {
-		// Register the Chrome Driver Binary to the system path so WebDriver can communicate with the Chrome browser
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\lanar\\Documents\\Selenium\\SeleniumExample\\webdrivers\\chromedriver.exe");
+	void setUp() {
+		// Setup the System path to the Selenium Chrome Binary file
+		// Use System.getProperty("user.dir") to get the system path for the project.
+		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/webdrivers/mac/chromedriver");
 
-		// Declare your webDriver class variable to a ChromeDriver WebDriver to communicate with Chrome.
+		// Instantiate WebDriver to use ChromeDriver.
 		webDriver = new ChromeDriver();
+	}
+
+	/**
+	 * Make sure when your done running your tests that you close the window/tab and
+	 * then exit out of the browser window.
+	 * 
+	 * @throws Exception
+	 */
+	@AfterEach
+	void tearDown() throws Exception {
+		webDriver.close();
+		webDriver.quit();
 	}
 
 	/**
@@ -30,7 +48,7 @@ class InClassDropDownExample {
 	 * Then change it to 28.
 	 */
 	@Test
-	void usingDropDownBoxesTest() throws InterruptedException {
+	void inClassDropDownAssignmentTest() {
 		// Set your starting web page.
 		String url = "https://www.facebook.com";
 
@@ -98,20 +116,6 @@ class InClassDropDownExample {
 			System.out.println("Is selected value equal to 28? " + isTheTwentyEigth);
 		}
 
-		Thread.sleep(5000);
-
-	}
-
-	/**
-	 * Make sure when your done running your tests that you close the window/tab and
-	 * then exit out of the browser window.
-	 * 
-	 * @throws Exception
-	 */
-	@AfterEach
-	void tearDown() throws Exception {
-		webDriver.close();
-		webDriver.quit();
 	}
 
 }

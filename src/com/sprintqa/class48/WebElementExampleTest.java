@@ -36,8 +36,7 @@ public class WebElementExampleTest {
 	static void setUp() {
 		// Setup the System path to the Selenium Chrome Binary file
 		// Use System.getProperty("user.dir") to get the system path for the project.
-		System.setProperty("webdriver.chrome.driver",
-				System.getProperty("user.dir") + "/webdrivers/mac/chromedriver");
+		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/webdrivers/mac/chromedriver");
 
 		// Instantiate WebDriver to use ChromeDriver.
 		driver = new ChromeDriver();

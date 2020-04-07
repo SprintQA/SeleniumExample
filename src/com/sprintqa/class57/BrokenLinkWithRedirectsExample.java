@@ -30,7 +30,7 @@ class BrokenLinkWithRedirectsExample {
 	@BeforeEach
 	void setUp() throws Exception {
 		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
 		// Declare your webDriver class variable to a ChromeDriver WebDriver to
 		// communicate with Chrome.
@@ -51,17 +51,19 @@ class BrokenLinkWithRedirectsExample {
 	}
 
 	@Test
-	void test() throws InterruptedException {
+	void brokenLinkWithRedirectsTest() throws InterruptedException {
+		// Set your starting web page.
 		String url = "http://Newtours.Demoaut.Com/";
 		// String url = "https://opensource-demo.orangehrmlive.com/";
 
+		// Open up your Chrome browser to the starting web page.
 		webDriver.get(url);
 
+		// Maximize the Chrome browser to fill the screen.
 		webDriver.manage().window().maximize();
 
+		// Verify page links
 		assertTrue(isPageLinksValid(), "Some or all of the links on the page are broken");
-
-		Thread.sleep(3000);
 
 	}
 
@@ -188,7 +190,7 @@ class BrokenLinkWithRedirectsExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

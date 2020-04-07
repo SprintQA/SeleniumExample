@@ -3,12 +3,12 @@ package com.sprintqa.class53;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 class ConfirmBoxesExample {
-	// Declare WebDriver variable as a Class variable so we can use it through out
-	// the class.
 	WebDriver webDriver;
 
 	/**
@@ -18,101 +18,13 @@ class ConfirmBoxesExample {
 	 * @throws Exception
 	 */
 	@BeforeEach
-	void setUp() throws Exception {
-		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+	void setUp() {
+		// Setup the System path to the Selenium Chrome Binary file
+		// Use System.getProperty("user.dir") to get the system path for the project.
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
-		// Declare your webDriver class variable to a ChromeDriver WebDriver to
-		// communicate with Chrome.
+		// Instantiate WebDriver to use ChromeDriver.
 		webDriver = new ChromeDriver();
-	}
-
-	@Test
-	void test() throws InterruptedException {
-		// Set your starting web page.
-		String url = "http://uitestpractice.com/Students/Switchto";
-
-		// Open up your Chrome browser to the starting web page.
-		webDriver.get(url);
-
-		// Maximize the Chrome browser to fill the screen.
-		webDriver.manage().window().maximize();
-
-// Use the WebDriver to search the web page using the "id" locator.
-
-		
-// Click the confirm button to open up a confirm box.
-
-
-		Thread.sleep(5000);
-
-// Using WebDriver to interact with the Confirm box.
-//
-// A confirm box is similar to an alert, except the user can also choose to
-// cancel the message.
-//
-
-// 1. Use switchTo() method returns a TargetLocator Class.
-
-		
-// 2. Use the TargetLocator alert() method to return a Alert Class.
-
-				
-// 3. Use the Alert accept() method to click the confirmation 
-// button and close the pop-up
-
-		
-// 4. Switch back to main window
-		
-		
-// 5. Verify the pop-up was clicked.
-		// Use the WebDriver to search the web page using the "id" locator. 
-
-		
-		// This is the text that should be displayed in the Div "demo" if the action is successful. 
-
-		
-		// Store the actual text being displayed in Div "demo" 
-
-		
-		// Do the values match? 
-
-
-		Thread.sleep(5000);
-
-// Repeat steps 1-5 for Confirm Cancel
-		// Click the confirm button to open up a confirm box.
-		
-		Thread.sleep(5000);
-		
-		// Use switchTo() method returns a TargetLocator Class.
-
-		
-		// Use the TargetLocator alert() method to return a Alert Class.
-		
-		// Use the Alert accept() method to click the cancel 
-		// button and close the pop-up
-
-
-		// Switch back to main window
-		
-		
-		// Verify the pop-up was clicked.
-		// Use the WebDriver to search the web page using the "id" locator. 
-
-		
-		// This is the text that should be displayed in the Div "demo" if the action is successful. 
-
-		
-		// Store the actual text being displayed in Div "demo" 
-
-		
-		// Do the values match? 
-
-		
-		
-		// Pause the test
-		Thread.sleep(5000);
 	}
 
 	/**
@@ -127,6 +39,28 @@ class ConfirmBoxesExample {
 		webDriver.quit();
 	}
 
+	@Test
+	void confirmBoxesTest() throws InterruptedException {
+		// Set your starting web page.
+		String url = "http://uitestpractice.com/Students/Switchto";
+
+		// Open up your Chrome browser to the starting web page.
+		webDriver.get(url);
+
+		// Maximize the Chrome browser to fill the screen.
+		webDriver.manage().window().maximize();
+
+		// Use the WebDriver to search the web page using the "id" locator.
+		WebElement confirmButton = webDriver.findElement(By.id("confirm"));
+
+		// Click the alertButton to trigger the Alert box.
+		confirmButton.click();
+
+		// Use switchTo() method click confirm ok
+		webDriver.switchTo().alert().accept();
+
+	}
+
 	/**
 	 * The System class maintains a Properties object that describes the
 	 * configuration of the current working environment. System properties include
@@ -138,7 +72,7 @@ class ConfirmBoxesExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

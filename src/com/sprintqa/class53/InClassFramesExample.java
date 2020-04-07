@@ -12,8 +12,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 class InClassFramesExample {
-	// Declare WebDriver variable as a Class variable so we can use it through out
-	// the class.
 	WebDriver webDriver;
 
 	/**
@@ -23,74 +21,13 @@ class InClassFramesExample {
 	 * @throws Exception
 	 */
 	@BeforeEach
-	void setUp() throws Exception {
-		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+	void setUp() {
+		// Setup the System path to the Selenium Chrome Binary file
+		// Use System.getProperty("user.dir") to get the system path for the project.
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
-		// Declare your webDriver class variable to a ChromeDriver WebDriver to
-		// communicate with Chrome.
+		// Instantiate WebDriver to use ChromeDriver.
 		webDriver = new ChromeDriver();
-	}
-
-	@Test
-	void test() throws InterruptedException {
-		// Set your starting web page.
-		String url = "https://stqatools.com/demo/Frames.php";
-
-		// Open up your Chrome browser to the starting web page.
-		webDriver.get(url);
-
-		// Maximize the Chrome browser to fill the screen.
-		webDriver.manage().window().maximize();
-/**
- * Go to: https://stqatools.com/demo/Frames.php
- * 	⁃ Switch to the IFrame
- *  ⁃ Click the “Basic Alert” Button
- * 	⁃ Get alert text and write it to the console.
- * 	⁃ Click Ok
- * 	⁃ Switch back to main window
- * 	⁃ Get the text from “mytext” and write it to the console.
- */
-		// Find Iframe Element
-		WebElement iframe = webDriver.findElement(By.tagName("iframe"));
-		webDriver.switchTo().frame(iframe);
-		
-		Thread.sleep(3000);
-		//Find "Basic Alert" Button in Javascript Section  
-		WebElement alertButton = webDriver.findElement(By.id("jbalert"));
-		
-		//Click alert button to open alert box
-		alertButton.click();
-		
-		//Switch to the alert box
-		Alert alert = webDriver.switchTo().alert();
-		
-		//Write alert box text to console
-		System.out.println(alert.getText());
-		
-		//Pause
-		Thread.sleep(3000);
-		
-		//Click OK button
-		alert.accept();
-		
-		//Switch back to default window
-		webDriver.switchTo().defaultContent();
-		
-		//Pause
-		Thread.sleep(3000);
-		
-		//Find the MyText div 
-		List<WebElement> myTextDivList = webDriver.findElements(By.id("mytext"));
-		
-		//Because id was not unique we had to pull all elements 
-		for(WebElement webElement:myTextDivList) {
-			//write out to conole
-			System.out.println(webElement.getText());
-		}
-		
-		// Pause the test
-		Thread.sleep(3000);
 	}
 
 	/**
@@ -105,6 +42,56 @@ class InClassFramesExample {
 		webDriver.quit();
 	}
 
+	@Test
+	void inClassFramesTest() throws InterruptedException {
+		// Set your starting web page.
+		String url = "https://stqatools.com/demo/Frames.php";
+
+		// Open up your Chrome browser to the starting web page.
+		webDriver.get(url);
+
+		// Maximize the Chrome browser to fill the screen.
+		webDriver.manage().window().maximize();
+
+		/*
+		 * Go to: https://stqatools.com/demo/Frames.php ⁃ Switch to the IFrame ⁃ Click
+		 * the “Basic Alert” Button ⁃ Get alert text and write it to the console. ⁃
+		 * Click Ok ⁃ Switch back to main window ⁃ Get the text from “mytext” and write
+		 * it to the console.
+		 */
+		// Find Iframe Element
+		WebElement iframe = webDriver.findElement(By.tagName("iframe"));
+		webDriver.switchTo().frame(iframe);
+
+		// Find "Basic Alert" Button in Javascript Section
+		WebElement alertButton = webDriver.findElement(By.id("jbalert"));
+
+		// Click alert button to open alert box
+		alertButton.click();
+
+		// Switch to the alert box
+		Alert alert = webDriver.switchTo().alert();
+
+		// Write alert box text to console
+		System.out.println(alert.getText());
+
+		// Click OK button
+		alert.accept();
+
+		// Switch back to default window
+		webDriver.switchTo().defaultContent();
+
+		// Find the MyText div
+		List<WebElement> myTextDivList = webDriver.findElements(By.id("mytext"));
+
+		// Because id was not unique we had to pull all elements
+		for (WebElement webElement : myTextDivList) {
+			// write out to conole
+			System.out.println(webElement.getText());
+		}
+
+	}
+
 	/**
 	 * The System class maintains a Properties object that describes the
 	 * configuration of the current working environment. System properties include
@@ -116,7 +103,7 @@ class InClassFramesExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

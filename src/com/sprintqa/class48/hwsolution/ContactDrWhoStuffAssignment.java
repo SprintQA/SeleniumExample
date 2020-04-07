@@ -29,7 +29,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
  * 5. Using the WebElement submit method to click the "Submit" button (Remember
  * to use the submit method of the form element in this case the form id is
  * "cp_contactformtoemail_pform_1" ) on the page to send your contact message.
- *  
+ * 
  * @author mpmeloche
  *
  */

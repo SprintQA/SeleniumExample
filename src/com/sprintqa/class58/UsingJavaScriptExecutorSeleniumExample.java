@@ -24,7 +24,7 @@ class UsingJavaScriptExecutorSeleniumExample {
 	@BeforeEach
 	void setUp() throws Exception {
 		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
 		// Declare your webDriver class variable to a ChromeDriver WebDriver to
 		// communicate with Chrome.
@@ -32,13 +32,17 @@ class UsingJavaScriptExecutorSeleniumExample {
 	}
 
 	@Test
-	void test() throws InterruptedException {
+	void usingJavaScriptExecutorTest() throws InterruptedException {
+		// Set your starting web page.
 		String url = "https://demoqa.com/automation-practice-form/";
 
+		// Open up your Chrome browser to the starting web page.
 		webDriver.get(url);
 
+		// Maximize the Chrome browser to fill the screen.
 		webDriver.manage().window().maximize();
 
+		// Locate continents dropdown box
 		WebElement continentDropDown = webDriver.findElement(By.id("continents"));
 
 		/*
@@ -67,8 +71,6 @@ class UsingJavaScriptExecutorSeleniumExample {
 		// Vertical scroll up by 400 pixels
 		js.executeScript("window.scrollBy(0, -400)");
 
-		Thread.sleep(3000);
-
 		// takes the continentDropDown element in as arguments[0] and scrolls it into
 		// view
 		js.executeScript("arguments[0].scrollIntoView(true);", continentDropDown);
@@ -81,12 +83,9 @@ class UsingJavaScriptExecutorSeleniumExample {
 		// To generate Alert window using JavascriptExecutor. Display the alert message
 		// alert('text'); Will display a browser alert box.
 		js.executeScript("alert('You Clicked QTP');");
-		Thread.sleep(2000);
 
 		// Switch to alert box and cick accept to close it
 		webDriver.switchTo().alert().accept();
-
-		Thread.sleep(2000);
 
 		// Convert Continent DropDown to Select Object
 		// So we can navigate the drop down option.
@@ -104,7 +103,6 @@ class UsingJavaScriptExecutorSeleniumExample {
 		// Get Title of a WebPage
 		System.out.println(js.executeScript("return document.title;").toString());
 
-		Thread.sleep(3000);
 	}
 
 	/**
@@ -130,7 +128,7 @@ class UsingJavaScriptExecutorSeleniumExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

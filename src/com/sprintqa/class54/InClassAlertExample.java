@@ -10,8 +10,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 class InClassAlertExample {
-	// Declare WebDriver variable as a Class variable so we can use it through out
-	// the class.
 	WebDriver webDriver;
 
 	/**
@@ -21,65 +19,13 @@ class InClassAlertExample {
 	 * @throws Exception
 	 */
 	@BeforeEach
-	void setUp() throws Exception {
-		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+	void setUp() {
+		// Setup the System path to the Selenium Chrome Binary file
+		// Use System.getProperty("user.dir") to get the system path for the project.
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
-		// Declare your webDriver class variable to a ChromeDriver WebDriver to
-		// communicate with Chrome.
+		// Instantiate WebDriver to use ChromeDriver.
 		webDriver = new ChromeDriver();
-	}
-
-	/**
-	 * Go to: http://uitestpractice.com/Students/Actions
-	 * 1. Use the browser to Locate the Locator you need to use to find the “Click Me!” button.
-	 * 2. Click the button to display the ALERT Box
-	 * 3. Next we need to switch the window focus from the main page to the ALERT Box.
-	 * 4. Now that we have focus on the ALERT Box we can do the following:
-	 * 	a. We can use the getText() method to get the test displayed in the ALERT BOX.
-	 *  b. We can use the accept() method to click the OK button in the ALERT Box
-	 * 5. Next we need to switch the window focus back to the main page.
-	 * @throws InterruptedException
-	 */
-	@Test
-	void test() throws InterruptedException {
-		String url = "http://uitestpractice.com/Students/Actions";
-
-		webDriver.get(url);
-
-		webDriver.manage().window().maximize();
-
-		// 1. Use the browser to Locate the Locator you need to use to find the “Click
-		//    Me!” button. Then using the webDriver.findElement method get the element so
-		//    we can interact with it.
-
-		WebElement alertButton = webDriver.findElement(By.name("click"));
-
-		// 2. Click the button to display the ALERT Box
-
-		alertButton.click();
-
-		// 3. Next we need to switch the window focus from the main page to the ALERT
-
-		Alert alert = webDriver.switchTo().alert();
-		Thread.sleep(3000);
-
-		// 4. Now that we have focus on the ALERT Box we can do the following:
-		//   a. We can use the getText() method to get the test displayed in the ALERT BOX.
-		//   b. We can use the accept() method to click the OK button in the ALERT Box
-
-		System.out.println(alert.getText());
-		alert.accept();
-
-		// 5. Once we have clicked the OK button, the webDriver's focus should have
-		//    returned to the main window. However, sometime the webDriver's focus does not
-		//    return to the main window. So, to be safe we should use the switchTo()'s
-		//    defaultContent() method to ensure the webDriver's focus is on the main window
-		//    before we continue.
-
-		webDriver.switchTo().defaultContent();
-
-		Thread.sleep(3000);
 	}
 
 	/**
@@ -95,6 +41,57 @@ class InClassAlertExample {
 	}
 
 	/**
+	 * Go to: http://uitestpractice.com/Students/Actions 1. Use the browser to
+	 * Locate the Locator you need to use to find the “Click Me!” button. 2. Click
+	 * the button to display the ALERT Box 3. Next we need to switch the window
+	 * focus from the main page to the ALERT Box. 4. Now that we have focus on the
+	 * ALERT Box we can do the following: a. We can use the getText() method to get
+	 * the test displayed in the ALERT BOX. b. We can use the accept() method to
+	 * click the OK button in the ALERT Box 5. Next we need to switch the window
+	 * focus back to the main page.
+	 * 
+	 * @throws InterruptedException
+	 */
+	@Test
+	void inClassAlertTest() throws InterruptedException {
+		String url = "http://uitestpractice.com/Students/Actions";
+
+		webDriver.get(url);
+
+		webDriver.manage().window().maximize();
+
+		// 1. Use the browser to Locate the Locator you need to use to find the “Click
+		// Me!” button. Then using the webDriver.findElement method get the element so
+		// we can interact with it.
+
+		WebElement alertButton = webDriver.findElement(By.name("click"));
+
+		// 2. Click the button to display the ALERT Box
+
+		alertButton.click();
+
+		// 3. Next we need to switch the window focus from the main page to the ALERT
+
+		Alert alert = webDriver.switchTo().alert();
+
+		// 4. Now that we have focus on the ALERT Box we can do the following:
+		// a. We can use the getText() method to get the test displayed in the ALERT
+		// BOX.
+		// b. We can use the accept() method to click the OK button in the ALERT Box
+
+		System.out.println(alert.getText());
+		alert.accept();
+
+		// 5. Once we have clicked the OK button, the webDriver's focus should have
+		// returned to the main window. However, sometime the webDriver's focus does not
+		// return to the main window. So, to be safe we should use the switchTo()'s
+		// defaultContent() method to ensure the webDriver's focus is on the main window
+		// before we continue.
+
+		webDriver.switchTo().defaultContent();
+	}
+
+	/**
 	 * The System class maintains a Properties object that describes the
 	 * configuration of the current working environment. System properties include
 	 * information about the current user, the current version of the Java runtime,
@@ -105,7 +102,7 @@ class InClassAlertExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 

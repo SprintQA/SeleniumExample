@@ -10,7 +10,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 /**
- * Example using Xpath and CSS Selectors to locate WebElements to log into SauceDemo 
+ * Example using Xpath and CSS Selectors to locate WebElements to log into
+ * SauceDemo
+ * 
  * @author mpmeloche
  *
  */
@@ -48,7 +50,7 @@ class sauceDemoExample {
 	/**
 	 * Test login functionality on saucedemo.com
 	 * 
-	 * @throws InterruptedException 
+	 * @throws InterruptedException
 	 */
 	@Test
 	void test() throws InterruptedException {
@@ -62,7 +64,7 @@ class sauceDemoExample {
 		// window dimension, not just the view port, synonymous to window.resizeTo() in
 		// JS.
 		webDriver.manage().window().setSize(new Dimension(1280, 877));
-		
+
 		// One Second Pause For Display Purposes Only
 		Thread.sleep(1000);
 
@@ -71,16 +73,16 @@ class sauceDemoExample {
 		WebElement userNameElement = webDriver.findElement(By.id("user-name"));
 		WebElement passwordElement = webDriver.findElement(By.xpath("//input[@id='password']"));
 		WebElement loginButton = webDriver.findElement(By.cssSelector("input.btn_action"));
-		
+
 		// Click the user name field to place mouse focus on element.
 		userNameElement.click();
-		
+
 		// Populate user name with "standard_user"
 		userNameElement.sendKeys("standard_user");
 
-		// Populate user password with "secret_sauce"		
+		// Populate user password with "secret_sauce"
 		passwordElement.sendKeys("secret_sauce");
-		
+
 		// Click the login button to login
 		loginButton.click();
 

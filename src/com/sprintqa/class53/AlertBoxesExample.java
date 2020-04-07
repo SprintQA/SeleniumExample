@@ -11,8 +11,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 class AlertBoxesExample {
-	// Declare WebDriver variable as a Class variable so we can use it through out
-	// the class.
 	WebDriver webDriver;
 
 	/**
@@ -22,135 +20,13 @@ class AlertBoxesExample {
 	 * @throws Exception
 	 */
 	@BeforeEach
-	void setUp() throws Exception {
-		// Set our ChromeDriver Binary Path
+	void setUp() {
+		// Setup the System path to the Selenium Chrome Binary file
+		// Use System.getProperty("user.dir") to get the system path for the project.
 		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
-		// Declare your webDriver class variable to a ChromeDriver WebDriver to
-		// communicate with Chrome.
+		// Instantiate WebDriver to use ChromeDriver.
 		webDriver = new ChromeDriver();
-	}
-
-	@Test
-	void test() throws InterruptedException {
-		// Set your starting web page.
-		String url = "http://uitestpractice.com/Students/Switchto";
-
-		// Open up your Chrome browser to the starting web page.
-		webDriver.get(url);
-
-		// Maximize the Chrome browser to fill the screen.
-		webDriver.manage().window().maximize();
-
-// Use the WebDriver to search the web page using the "id" locator.
-		WebElement alertButton = webDriver.findElement(By.id("alert"));
-
-// Click the alertButton to trigger the Alert box.
-		alertButton.click();
-
-		Thread.sleep(2000);
-// Using WebDriver to interact with the Alert pop-up.
-//
-// The simplest of these is referred to as an alert, which shows a custom
-// message, and a single button which dismisses the alert, labeled in most
-// browsers as OK. It can also be dismissed in most browsers by pressing the
-// close button, but this will always do the same thing as the OK button.
-//
-
-// 1. Use switchTo() method returns a TargetLocator Class.
-		TargetLocator targetLocator = webDriver.switchTo();
-
-// 2. Use the TargetLocator alert() method to return a Alert Class.
-		Alert alert = targetLocator.alert();
-
-// 3. Use the Alert accept() method to click the confirmation 
-//	  button and close the pop-up
-		System.out.println(alert.getText());
-		alert.accept();
-
-		Thread.sleep(2000);
-
-// 4. Return control to the main window
-		webDriver.switchTo().defaultContent();
-
-// 5. Verify the pop-up was clicked.
-		// Use the WebDriver to search the web page using the "id" locator.
-		WebElement demoDiv = webDriver.findElement(By.id("demo"));
-
-		// This is the text that should be displayed in the Div "demo" if the action is
-		// successful.
-		String expectedDisplayedActionText = "You have clicked on ok button in alert window";
-
-		// Store the actual text being displayed in Div "demo"
-		String actualDisplayedActionText = demoDiv.getText();
-
-		if (expectedDisplayedActionText.equals(actualDisplayedActionText)) {
-			System.out.println("Test Passed");
-		} else {
-			System.out.println("Test Failed");
-		}
-
-		Thread.sleep(3000);
-		WebElement confirmButton = webDriver.findElement(By.id("confirm"));
-		confirmButton.click();
-
-		Thread.sleep(3000);
-		targetLocator = webDriver.switchTo();
-		alert = targetLocator.alert();
-		alert.accept();
-		Thread.sleep(3000);
-		//alert.dismiss();
-
-		webDriver.switchTo().defaultContent();
-		Thread.sleep(3000);
-		demoDiv = webDriver.findElement(By.id("demo"));
-
-		String expectedConfirmationText = "You pressed Ok in confirm window";
-		String actualConfirmationText = demoDiv.getText();
-
-		if (expectedConfirmationText.equals(actualConfirmationText)) {
-			System.out.println("Test Passed");
-		} else {
-			System.out.println("Test Failed");
-		}
-		
-	////
-		WebElement promptButton = webDriver.findElement(By.id("prompt"));
-		promptButton.click();
-
-		Thread.sleep(3000);
-		
-		//Use switchTo() method returns a TargetLocator Class.
-		targetLocator = webDriver.switchTo();
-		
-		//Use the TargetLocator alert() method to return a Alert Class.
-		alert = targetLocator.alert();
-		// use sendkeys() to send text to input 
-		
-		alert.sendKeys("Michael");
-		//Use the Alert accept() method to click the confirmation
-		
-		alert.accept();
-		Thread.sleep(3000);
-		//alert.dismiss();
-
-		// Switch back to defult window
-		webDriver.switchTo().defaultContent();
-		
-		//Refresh demo div element
-		demoDiv = webDriver.findElement(By.id("demo"));
-
-		Thread.sleep(3000);
-		//Set expected string value
-		String expectedPromptText = "Hello Michael! How are you today?";
-		String actualPromptText = demoDiv.getText();
-
-		//validate displayed text
-		if (expectedPromptText.equals(actualPromptText)) {
-			System.out.println("Test Passed");
-		} else {
-			System.out.println("Test Failed");
-		}
 	}
 
 	/**
@@ -163,6 +39,150 @@ class AlertBoxesExample {
 	void tearDown() throws Exception {
 		webDriver.close();
 		webDriver.quit();
+	}
+
+	@Test
+	void alertBoxesTest() throws InterruptedException {
+		// Set your starting web page.
+		String url = "http://uitestpractice.com/Students/Switchto";
+
+		// Open up your Chrome browser to the starting web page.
+		webDriver.get(url);
+
+		// Maximize the Chrome browser to fill the screen.
+		webDriver.manage().window().maximize();
+
+		// Use the WebDriver to search the web page using the "id" locator.
+		WebElement alertButton = webDriver.findElement(By.id("alert"));
+
+		// Click the alertButton to trigger the Alert box.
+		alertButton.click();
+
+		// Wait for alert to display
+		Thread.sleep(1000);
+
+		// Using WebDriver to interact with the Alert pop-up.
+		//
+		// The simplest of these is referred to as an alert, which shows a custom
+		// message, and a single button which dismisses the alert, labeled in most
+		// browsers as OK. It can also be dismissed in most browsers by pressing the
+		// close button, but this will always do the same thing as the OK button.
+		//
+
+		// 1. Use switchTo() method returns a TargetLocator Class.
+		TargetLocator targetLocator = webDriver.switchTo();
+
+		// 2. Use the TargetLocator alert() method to return a Alert Class.
+		Alert alert = targetLocator.alert();
+
+		// 3. Use the Alert accept() method to click the confirmation
+		// button and close the pop-up
+		System.out.println(alert.getText());
+		alert.accept();
+
+		// Close alert
+		Thread.sleep(1000);
+
+		// 4. Return control to the main window
+		webDriver.switchTo().defaultContent();
+
+		// 5. Verify the pop-up was clicked.
+		// Use the WebDriver to search the web page using the "id" locator.
+		WebElement demoDiv = webDriver.findElement(By.id("demo"));
+
+		// This is the text that should be displayed in the Div "demo" if the action is
+		// successful.
+		String expectedDisplayedActionText = "You have clicked on ok button in alert window";
+
+		// Store the actual text being displayed in Div "demo"
+		String actualDisplayedActionText = demoDiv.getText();
+
+		// Validate text is displayed
+		if (expectedDisplayedActionText.equals(actualDisplayedActionText)) {
+			System.out.println("Test Passed");
+		} else {
+			System.out.println("Test Failed");
+		}
+
+		// Load page Element
+		WebElement confirmButton = webDriver.findElement(By.id("confirm"));
+
+		// Click confirm button
+		confirmButton.click();
+
+		// Wait for page to load
+		Thread.sleep(1000);
+
+		// Switch to alert
+		targetLocator = webDriver.switchTo();
+		alert = targetLocator.alert();
+
+		// Accept alert
+		alert.accept();
+
+		// return to mai\n window
+		webDriver.switchTo().defaultContent();
+
+		// Wait for main window to laod
+		Thread.sleep(1000);
+
+		// Get Demo element
+		demoDiv = webDriver.findElement(By.id("demo"));
+
+		// Set String variables
+		String expectedConfirmationText = "You pressed Ok in confirm window";
+		String actualConfirmationText = demoDiv.getText();
+
+		// Confirm expected values
+		if (expectedConfirmationText.equals(actualConfirmationText)) {
+			System.out.println("Test Passed");
+		} else {
+			System.out.println("Test Failed");
+		}
+
+		// Get Prompt button
+		WebElement promptButton = webDriver.findElement(By.id("prompt"));
+
+		// Display prompt box
+		promptButton.click();
+
+		// Wait for prompt to display
+		Thread.sleep(1000);
+
+		// Use switchTo() method returns a TargetLocator Class.
+		targetLocator = webDriver.switchTo();
+
+		// Use the TargetLocator alert() method to return a Alert Class.
+		alert = targetLocator.alert();
+
+		// use sendkeys() to send text to input
+		alert.sendKeys("Michael");
+
+		// Use the Alert accept() method to click the confirmation
+		alert.accept();
+
+		// Wait for page to laod
+		Thread.sleep(1000);
+
+		// Switch back to defult window
+		webDriver.switchTo().defaultContent();
+
+		// Refresh demo div element
+		demoDiv = webDriver.findElement(By.id("demo"));
+
+		// Wait for window to refresh
+		Thread.sleep(1000);
+
+		// Set expected string value
+		String expectedPromptText = "Hello Michael! How are you today?";
+		String actualPromptText = demoDiv.getText();
+
+		// validate displayed text
+		if (expectedPromptText.equals(actualPromptText)) {
+			System.out.println("Test Passed");
+		} else {
+			System.out.println("Test Failed");
+		}
 	}
 
 	/**

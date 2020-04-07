@@ -24,12 +24,12 @@ class UsingPageLoadImplicitWaitsExample {
 	@BeforeEach
 	void setUp() throws Exception {
 		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
 		// Declare your webDriver class variable to a ChromeDriver WebDriver to
 		// communicate with Chrome.
 		webDriver = new ChromeDriver();
-		
+
 		/*
 		 * An implicit wait tells the WebDriver to poll the DOM for a certain amount of
 		 * time when trying to find an element or elements if they are not immediately
@@ -46,30 +46,35 @@ class UsingPageLoadImplicitWaitsExample {
 	}
 
 	@Test
-	void test() throws InterruptedException {
-
+	void usingPageLoadImplicitWaitsTest() throws InterruptedException {
+		// Set your starting web page.
 		String url = "https://cnn.com";
-		
+
+		// Open up your Chrome browser to the starting web page.
 		webDriver.get(url);
-		
+
 		/*
 		 * Sets the amount of time to wait for a page load to complete before throwing
 		 * an error. If the timeout is negative, page loads can be indefinite.
 		 */
 		webDriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 
+		// Maximize the Chrome browser to fill the screen.
 		webDriver.manage().window().maximize();
 
+		// Find and click on the World Link
 		webDriver.findElement(By.linkText("World")).click();
 
+		// Get the World Header tag
 		WebElement world = webDriver.findElement(By.xpath("//h1[text()='World']"));
+
+		// Verify that the world header is displayed.
 		if (world.isDisplayed()) {
 			System.out.println("World element is displayed. Test case passed");
 		} else {
 			System.out.println("World element is NOT displayed. Test Case failed");
 		}
 
-		Thread.sleep(3000);
 	}
 
 	/**
@@ -95,7 +100,7 @@ class UsingPageLoadImplicitWaitsExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 
@@ -104,7 +109,7 @@ class UsingPageLoadImplicitWaitsExample {
 
 		// local var reference to store os binary path
 		String chromeBinaryPath = "";
-		
+
 		// We only need the 1st 3 characters from the os.name to determine our OS.
 		System.out.println(os.substring(0, 3));
 

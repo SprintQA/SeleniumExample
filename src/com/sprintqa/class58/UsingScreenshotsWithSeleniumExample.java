@@ -1,10 +1,10 @@
 package com.sprintqa.class58;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 import org.junit.jupiter.api.AfterEach;
@@ -29,7 +29,7 @@ class UsingScreenshotsWithSeleniumExample {
 	@BeforeEach
 	void setUp() throws Exception {
 		// Set our ChromeDriver Binary Path
-		System.setProperty("webdriver.chrome.driver", getChromeDeriverBinaryPath());
+		System.setProperty("webdriver.chrome.driver", getChromeDriverBinaryPath());
 
 		// Declare your webDriver class variable to a ChromeDriver WebDriver to
 		// communicate with Chrome.
@@ -37,11 +37,14 @@ class UsingScreenshotsWithSeleniumExample {
 	}
 
 	@Test
-	void test() throws InterruptedException {
+	void usingScreenshotsTest() throws InterruptedException {
+		// Set your starting web page.
 		String url = "https://www.aa.com/homePage.do";
 
+		// Open up your Chrome browser to the starting web page.
 		webDriver.get(url);
 
+		// Maximize the Chrome browser to fill the screen.
 		webDriver.manage().window().maximize();
 
 		// Indicates a driver that can capture a screenshot and store it in different
@@ -71,13 +74,12 @@ class UsingScreenshotsWithSeleniumExample {
 
 			// Make sure to close your input stream.
 			inputStream.close();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Unable to take screenshot");
 		}
 
-		Thread.sleep(3000);
 	}
 
 	/**
@@ -103,7 +105,7 @@ class UsingScreenshotsWithSeleniumExample {
 	 * @see https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	 * @return
 	 */
-	private String getChromeDeriverBinaryPath() {
+	private String getChromeDriverBinaryPath() {
 		// The key "user.dir" returns the Users working directory.
 		String userWorkingDirectory = System.getProperty("user.dir");
 
